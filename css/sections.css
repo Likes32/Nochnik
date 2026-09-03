@@ -1,4 +1,39 @@
-/* Навигация. Секции добавляются в задаче 5. */
+/* ── Общий каркас секции ──────────────────────────────────────
+   Метка времени живёт маргиналией на левом поле, на мобиле
+   превращается в строку-разделитель во всю ширину. */
+
+.section{
+  position:relative;
+  padding:var(--pad-section) var(--pad-side);
+  display:grid;
+  grid-template-columns:var(--rail) minmax(0,1fr);
+  gap:0 clamp(1.5rem,4vw,3.5rem);
+}
+.section > *{grid-column:2}
+
+.section__time{
+  grid-column:1; grid-row:1;
+  margin:0; padding-top:.6em;
+  color:var(--gold-dim);
+}
+
+.section__head h2{margin-bottom:.5em}
+.section__head p{color:var(--olive)}
+
+@media (max-width:900px){
+  .section{grid-template-columns:minmax(0,1fr)}
+  .section > *{grid-column:1}
+  .section__time{
+    grid-column:1; grid-row:1;
+    display:flex; align-items:center; gap:14px;
+    padding:0 0 1.6em;
+  }
+  .section__time::after{
+    content:""; flex:1; height:1px; background:var(--hair);
+  }
+}
+
+/* Навигация */
 
 .nav{
   position:fixed; inset:0 0 auto 0; z-index:50;

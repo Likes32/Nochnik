@@ -15,6 +15,7 @@
 <link rel="stylesheet" href="css/tokens.css">
 <link rel="stylesheet" href="css/base.css">
 <link rel="stylesheet" href="css/sections.css">
+<link rel="stylesheet" href="css/floorplan.css">
 <script>document.documentElement.classList.add("js")</script>
 </head>
 <body>
@@ -45,10 +46,134 @@
   </header>
 
   <main id="top">
-    <!-- Секции добавляются в задаче 5 -->
+
+    <!-- ── 18:40 · План дома ─────────────────────────────────── -->
+    <section class="section plan" id="plan">
+      <p class="mono section__time"><span>18:40</span></p>
+
+      <div class="section__head">
+        <h2>Шестьдесят два метра, разложенные по полкам</h2>
+        <p>Два уровня. Внизу общая жизнь, наверху сон. Наведите на помещение —
+        расскажу, что там.</p>
+      </div>
+
+      <div class="plan__grid">
+
+        <figure class="plan__level">
+          <figcaption class="mono">Первый этаж · 42 м²</figcaption>
+          <svg viewBox="0 0 680 980" class="plan__svg" role="img"
+               aria-label="План первого этажа: прихожая с лестницей, санузел, кухня-столовая, гостиная с панорамным окном и терраса">
+
+            <!-- помещения -->
+            <g class="room" tabindex="0" role="button"
+               data-note="Прихожая и лестница наверх. Лестница крутая, как во всех A-frame — с детьми до пяти лет неудобно.">
+              <path class="room__fill" d="M40 40 H340 V290 H40 Z"/>
+              <text class="room__label" x="190" y="152">Прихожая
+                <tspan class="room__area" x="190" dy="22">7,5 м²</tspan>
+              </text>
+            </g>
+
+            <g class="room" tabindex="0" role="button"
+               data-note="Санузел: душ, тёплый пол, раковина. Полотенца и мыло на месте.">
+              <path class="room__fill" d="M340 40 H640 V290 H340 Z"/>
+              <text class="room__label" x="490" y="152">Санузел
+                <tspan class="room__area" x="490" dy="22">7,5 м²</tspan>
+              </text>
+            </g>
+
+            <g class="room" tabindex="0" role="button"
+               data-note="Кухня-столовая: плита, холодильник, посуда на четверых. Кофе и чай включены.">
+              <path class="room__fill" d="M40 290 H340 V490 H40 Z"/>
+              <text class="room__label" x="190" y="380">Кухня
+                <tspan class="room__area" x="190" dy="22">6 м²</tspan>
+              </text>
+            </g>
+
+            <g class="room" tabindex="0" role="button"
+               data-note="Гостиная в два света. Пять метров стекла в торце — утром в них видно просеку.">
+              <path class="room__fill" d="M340 290 H640 V740 H40 V490 H340 Z"/>
+              <text class="room__label" x="400" y="560">Гостиная
+                <tspan class="room__area" x="400" dy="22">21 м²</tspan>
+              </text>
+            </g>
+
+            <g class="room" tabindex="0" role="button"
+               data-note="Терраса на восток. Двенадцать метров, два кресла и место под дрова.">
+              <path class="room__fill room__fill--outdoor" d="M40 740 H640 V940 H40 Z"/>
+              <text class="room__label" x="340" y="830">Терраса
+                <tspan class="room__area" x="340" dy="22">12 м², снаружи</tspan>
+              </text>
+            </g>
+
+            <!-- перегородки -->
+            <g class="plan__walls" aria-hidden="true">
+              <path class="wall wall--inner" d="M340 40 V490 M40 290 H340 M40 490 H340"/>
+              <path class="wall" d="M40 40 H640 V740 H40 Z"/>
+            </g>
+
+            <!-- печь-камин -->
+            <g class="stove" tabindex="0" role="button"
+               data-note="Чугунная печь-камин. Топится дровами, дрова включены и лежат на террасе.">
+              <rect class="stove__body" x="575" y="545" width="48" height="66" rx="3"/>
+              <circle class="stove__glow" cx="599" cy="578" r="11"/>
+              <text class="room__area" x="560" y="640" text-anchor="end">печь-камин</text>
+            </g>
+
+            <!-- панорамное окно: единственный источник света на схеме -->
+            <g class="glazing" aria-hidden="true">
+              <path d="M40 740 H640"/>
+              <path class="glazing__inner" d="M40 733 H640"/>
+            </g>
+            <text class="glazing__label" x="340" y="716" text-anchor="middle">панорамное окно · 5 м</text>
+          </svg>
+        </figure>
+
+        <figure class="plan__level">
+          <figcaption class="mono">Антресоль · 20 м²</figcaption>
+          <svg viewBox="0 0 680 460" class="plan__svg" role="img"
+               aria-label="План антресоли: спальня с кроватью, гардероб и ограждение, открытое в гостиную">
+
+            <g class="room" tabindex="0" role="button"
+               data-note="Спальня под скатом. Кровать 180 × 200, в полный рост встаёшь у окна.">
+              <path class="room__fill" d="M40 40 H480 V380 H40 Z"/>
+              <rect class="bed" x="88" y="120" width="180" height="200" rx="4"/>
+              <text class="room__label" x="374" y="230">Спальня
+                <tspan class="room__area" x="374" dy="22">15 м²</tspan>
+              </text>
+            </g>
+
+            <g class="room" tabindex="0" role="button"
+               data-note="Гардероб: штанга, полки, место под чемоданы и мокрую одежду.">
+              <path class="room__fill" d="M480 40 H640 V380 H480 Z"/>
+              <text class="room__label" x="560" y="200">Гардероб
+                <tspan class="room__area" x="560" dy="22">5 м²</tspan>
+              </text>
+            </g>
+
+            <g class="plan__walls" aria-hidden="true">
+              <path class="wall wall--inner" d="M480 40 V380"/>
+              <path class="wall" d="M40 40 H640 V380 H40 Z"/>
+            </g>
+
+            <g class="railing" tabindex="0" role="button"
+               data-note="Ограждение. Пространство двусветное — отсюда видно гостиную и верх панорамного окна.">
+              <path class="railing__line" d="M40 380 H640"/>
+              <text class="glazing__label" x="340" y="410" text-anchor="middle">ограждение · открыто вниз</text>
+            </g>
+          </svg>
+        </figure>
+
+      </div>
+
+      <p class="plan__note" data-floorplan-note aria-live="polite">
+        Наведите на помещение или выберите его с клавиатуры.
+      </p>
+    </section>
+
   </main>
 
 </div>
 
+<script type="module" src="js/main.js"></script>
 </body>
 </html>
