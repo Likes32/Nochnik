@@ -557,6 +557,89 @@ git add -A && git commit -m "Разметка секций и контент"
 
 ---
 
+### Задача 5a: План дома
+
+**Файлы:**
+- Создать: `js/floorplan.js`, `css/floorplan.css`
+- Изменить: `index.html` — секция с меткой `18:40`
+
+**Интерфейсы:**
+- Отдаёт: `initFloorplan(root: HTMLElement): void` — вызывается из `js/main.js`
+
+Размеры помещений и подписи — в спеке, раздел 4a. Копировать оттуда, не выдумывать.
+
+- [ ] **Шаг 1: разметка двух схем**
+
+Inline-SVG, `viewBox="0 0 600 700"` для первого этажа и `viewBox="0 0 600 340"` для
+антресоли, масштаб общий — 100 единиц на метр, чтобы уровни визуально совпадали по
+ширине. Каждое помещение — `<g role="button" tabindex="0" data-note="…">` с контуром
+`<path>` и подписью названия и площади.
+
+Стены — `stroke:var(--cream)`, толщина 3, внутренние перегородки — толщина 1.5.
+Заливка помещений `var(--n2)`, при подсветке `var(--n3)` и контур `var(--gold)`.
+Панорамное окно — двойная линия золотом: это единственный источник света на схеме,
+как и в логотипе.
+
+- [ ] **Шаг 2: подписи площадей прямо на схеме**
+
+Каждое помещение подписано названием (Onest 600, 13px) и площадью (JetBrains Mono, 11px).
+Без JS схема должна оставаться полноценной — это базовое состояние, а не запасное.
+
+- [ ] **Шаг 3: `js/floorplan.js`**
+
+```js
+export function initFloorplan(root) {
+  const note = root.querySelector("[data-floorplan-note]");
+  const rooms = root.querySelectorAll("[data-note]");
+  const base = note.textContent;
+
+  const show = (el) => {
+    rooms.forEach((r) => r.classList.toggle("is-active", r === el));
+    note.textContent = el.dataset.note;
+  };
+  const clear = () => {
+    rooms.forEach((r) => r.classList.remove("is-active"));
+    note.textContent = base;
+  };
+
+  rooms.forEach((room) => {
+    room.addEventListener("pointerenter", () => show(room));
+    room.addEventListener("focus", () => show(room));
+    room.addEventListener("click", () => show(room));
+    room.addEventListener("blur", clear);
+    room.addEventListener("keydown", (e) => {
+      if (e.key === "Enter" || e.key === " ") { e.preventDefault(); show(room); }
+    });
+  });
+  root.addEventListener("pointerleave", clear);
+}
+```
+
+Панель подписи несёт `aria-live="polite"`, поэтому смена текста объявляется скринридером.
+
+- [ ] **Шаг 4: адаптив схемы**
+
+До 900px уровни идут друг под другом, SVG тянется на всю ширину через
+`width:100%; height:auto`. Подпись переезжает под схему и получает фиксированную
+минимальную высоту, чтобы блок не прыгал при смене текста.
+
+На тач-устройствах `pointerenter` срабатывает по касанию — этого достаточно,
+отдельная логика не нужна.
+
+- [ ] **Шаг 5: проверить**
+
+Открыть локальный сервер. Проверить: обе схемы видны; наведение подсвечивает помещение
+и меняет подпись; `Tab` проходит по всем помещениям с видимой рамкой фокуса; при
+выключенном JS названия и площади на месте.
+
+- [ ] **Шаг 6: коммит**
+
+```bash
+git add -A && git commit -m "Интерактивный план дома: два уровня, подписи помещений"
+```
+
+---
+
 ### Задача 6: Адаптив
 
 **Файлы:**
