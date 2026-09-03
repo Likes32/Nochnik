@@ -51,8 +51,12 @@
 
     <!-- ── 17:40 · Приезд ─────────────────────────────────────── -->
     <section class="hero" id="hero">
-      <div class="hero__media" data-shot="hero-wide / hero-tall">
-        <span class="mono">кадр первого экрана</span>
+      <div class="hero__media">
+        <picture>
+          <source media="(max-width:900px)" srcset="photos/hero-tall.jpg">
+          <img src="photos/hero-wide.jpg" fetchpriority="high" decoding="async"
+               alt="Дом со светящимся фронтоном в сумерках">
+        </picture>
       </div>
 
       <div class="hero__body">
@@ -90,8 +94,8 @@
       </div>
 
       <div class="house__grid">
-        <div class="house__media" data-shot="house.jpg">
-          <span class="mono">дом снаружи, вечер</span>
+        <div class="house__media">
+          <img src="photos/house.jpg" loading="lazy" decoding="async" alt="Чёрный A-frame дом на сваях в сосновом бору, терраса с креслами">
         </div>
 
         <dl class="house__specs">
@@ -375,8 +379,8 @@
     <!-- ── 19:30 · Ужин ───────────────────────────────────────── -->
     <section class="section scene" id="dinner">
       <p class="mono section__time"><span>19:30</span></p>
-      <div class="scene__media" data-shot="terrace.jpg">
-        <span class="mono">терраса, гриль</span>
+      <div class="scene__media">
+        <img src="photos/terrace.jpg" loading="lazy" decoding="async" alt="Деревянный дом с гирляндой тёплых огней вечером">
       </div>
       <div class="scene__body">
         <h2>Ужин на террасе</h2>
@@ -389,8 +393,8 @@
     <!-- ── 21:00 · Баня ───────────────────────────────────────── -->
     <section class="section scene scene--flip" id="sauna">
       <p class="mono section__time"><span>21:00</span></p>
-      <div class="scene__media" data-shot="sauna.jpg">
-        <span class="mono">парная</span>
+      <div class="scene__media">
+        <img src="photos/sauna.jpg" loading="lazy" decoding="async" alt="Парная с деревянными полками и печью">
       </div>
       <div class="scene__body">
         <h2>Баня</h2>
@@ -405,8 +409,8 @@
     <!-- ── 22:10 · Купель ─────────────────────────────────────── -->
     <section class="section scene" id="tub">
       <p class="mono section__time"><span>22:10</span></p>
-      <div class="scene__media" data-shot="tub.jpg">
-        <span class="mono">купель с подсветкой</span>
+      <div class="scene__media">
+        <img src="photos/tub.jpg" loading="lazy" decoding="async" alt="Купель с паром на фоне закатного неба">
       </div>
       <div class="scene__body">
         <h2>Купель</h2>
@@ -442,8 +446,8 @@
     <!-- ── 06:10 · Утро ───────────────────────────────────────── -->
     <section class="section scene scene--flip scene--dawn" id="morning">
       <p class="mono section__time"><span>06:10</span></p>
-      <div class="scene__media" data-shot="morning.jpg">
-        <span class="mono">туман над просекой</span>
+      <div class="scene__media">
+        <img src="photos/morning.jpg" loading="lazy" decoding="async" alt="Хвойный лес в утреннем тумане">
       </div>
       <div class="scene__body">
         <h2>Утро</h2>
