@@ -16,6 +16,7 @@
 <link rel="stylesheet" href="css/base.css">
 <link rel="stylesheet" href="css/sections.css">
 <link rel="stylesheet" href="css/floorplan.css">
+<link rel="stylesheet" href="css/calendar.css">
 <script>document.documentElement.classList.add("js")</script>
 </head>
 <body>
@@ -310,6 +311,60 @@
       <p class="plan__note" data-floorplan-note aria-live="polite">
         Наведите на помещение или выберите его с клавиатуры.
       </p>
+    </section>
+
+    <!-- ── Бронирование ───────────────────────────────────────── -->
+    <section class="section booking" id="booking">
+      <p class="mono section__time"><span>даты</span></p>
+
+      <div class="section__head">
+        <h2>Когда приедете</h2>
+        <p>Будни и выходные стоят по-разному, поэтому считаю сразу — без
+        «уточняйте у менеджера».</p>
+      </div>
+
+      <div class="bk">
+
+        <div class="bk__cal">
+          <div class="cal__head">
+            <p class="cal__title" data-cal-title></p>
+            <button class="cal__nav" type="button" data-cal-prev aria-label="Предыдущий месяц">‹</button>
+            <button class="cal__nav" type="button" data-cal-next aria-label="Следующий месяц">›</button>
+          </div>
+
+          <div class="cal__months" data-cal-months></div>
+
+          <p class="cal__hint mono" data-cal-hint aria-live="polite"></p>
+
+          <ul class="cal__legend">
+            <li><i class="k-free"></i> свободно</li>
+            <li><i class="k-busy"></i> занято</li>
+            <li><i class="k-pick"></i> ваш выбор</li>
+          </ul>
+        </div>
+
+        <aside class="bk__quote-wrap">
+          <div class="bk__quote" data-cal-quote></div>
+
+          <form class="bk__form" data-cal-form novalidate>
+            <label>Имя
+              <input type="text" name="name" autocomplete="given-name" required>
+            </label>
+            <label>Телефон
+              <input type="tel" name="phone" autocomplete="tel" required>
+            </label>
+            <label class="bk__check">
+              <input type="checkbox" data-cal-sauna>
+              Протопить баню — 3 500 ₽
+            </label>
+            <button class="bk__submit" type="submit">Отправить заявку</button>
+          </form>
+
+          <p class="bk__note">Демонстрационный проект. Объект вымышленный,
+          занятость условная, заявка никуда не уходит.</p>
+        </aside>
+
+      </div>
     </section>
 
   </main>

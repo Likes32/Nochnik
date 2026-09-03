@@ -1,0 +1,163 @@
+/* Календарь и форма заявки. */
+
+.bk{
+  display:grid;
+  grid-template-columns:minmax(0,1.4fr) minmax(0,1fr);
+  gap:clamp(1.5rem,4vw,4rem);
+  align-items:start;
+  margin-top:clamp(2rem,5vw,3.5rem);
+}
+
+/* ── Шапка календаря ── */
+.cal__head{
+  display:flex; align-items:center; gap:16px;
+  margin-bottom:22px;
+}
+.cal__title{margin:0; font-family:var(--display); font-size:1.5rem}
+.cal__nav{
+  width:44px; height:44px; flex:none;
+  display:grid; place-items:center;
+  background:none; border:1px solid var(--hair); border-radius:50%;
+  color:var(--cream); font-size:1rem; cursor:pointer;
+  transition:border-color .25s var(--ease), color .25s var(--ease);
+}
+.cal__nav:hover{border-color:var(--gold); color:var(--gold)}
+.cal__nav:last-of-type{margin-left:auto}
+
+/* ── Месяцы ── */
+.cal__months{
+  display:grid; grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:clamp(1.25rem,3vw,2.5rem);
+}
+.cal__caption{margin:0 0 12px; color:var(--olive)}
+
+.cal__week,
+.cal__grid{display:grid; grid-template-columns:repeat(7,minmax(0,1fr)); gap:2px}
+.cal__week{margin-bottom:6px}
+.cal__week span{
+  font-family:var(--mono); font-size:var(--step-1);
+  color:var(--hair-lit); text-align:center; letter-spacing:.04em;
+}
+
+/* Ячейка не меньше 44px — это минимум под палец. */
+.cal__day{
+  min-width:44px; min-height:44px;
+  display:grid; place-items:center;
+  background:none; border:1px solid transparent; border-radius:6px;
+  color:var(--cream); font-family:var(--mono); font-size:.875rem;
+  font-variant-numeric:tabular-nums;
+  cursor:pointer;
+  transition:background-color .18s var(--ease), color .18s var(--ease),
+             border-color .18s var(--ease);
+}
+.cal__pad{min-height:44px}
+
+.cal__day:hover:not(:disabled){border-color:var(--gold-dim)}
+
+.cal__day.is-past{color:var(--hair-lit); cursor:default}
+.cal__day.is-busy{
+  color:var(--hair-lit); cursor:not-allowed;
+  background:repeating-linear-gradient(
+    -45deg, transparent 0 3px, var(--hair) 3px 4px);
+}
+
+.cal__day.is-range{background:var(--n2); border-radius:0}
+.cal__day.is-in,
+.cal__day.is-out{
+  background:var(--gold); color:var(--n0); font-weight:500; border-color:var(--gold);
+}
+.cal__day.is-in{border-radius:6px 0 0 6px}
+.cal__day.is-out{border-radius:0 6px 6px 0}
+
+.cal__hint{
+  margin:18px 0 0; min-height:2.6em; max-width:46ch;
+  color:var(--olive); font-size:var(--step-2);
+}
+
+/* ── Панель расчёта ── */
+.bk__quote{
+  background:var(--n2); border:1px solid var(--hair); border-radius:12px;
+  padding:clamp(1.25rem,3vw,2rem);
+}
+.bk__empty{margin:0; color:var(--olive)}
+.bk__empty--warn{color:var(--gold)}
+
+.bk__rows{margin:0; display:grid; gap:10px}
+.bk__row{display:flex; align-items:baseline; gap:12px}
+.bk__row dt{color:var(--olive); font-size:var(--step-2)}
+.bk__row dd{margin:0 0 0 auto; color:var(--cream)}
+
+.bk__total{
+  display:flex; align-items:baseline; gap:12px;
+  margin:20px 0 0; padding-top:18px;
+  border-top:1px solid var(--hair);
+  font-family:var(--display); font-size:1.75rem;
+}
+.bk__total .num{margin-left:auto; color:var(--gold)}
+.bk__meta{margin:14px 0 0}
+
+/* ── Форма ── */
+.bk__form{display:grid; gap:12px; margin-top:24px}
+.bk__form label{display:grid; gap:6px; font-size:var(--step-2); color:var(--olive)}
+.bk__form input[type="text"],
+.bk__form input[type="tel"]{
+  min-height:48px; padding:0 14px;
+  background:var(--n1); border:1px solid var(--hair); border-radius:8px;
+  color:var(--cream); font-family:var(--body); font-size:var(--step-3);
+}
+.bk__form input:focus-visible{border-color:var(--gold)}
+
+.bk__check{
+  display:flex; align-items:center; gap:12px;
+  min-height:44px; color:var(--cream); font-size:var(--step-2);
+}
+.bk__check input{width:20px; height:20px; accent-color:var(--gold); flex:none}
+
+.bk__submit{
+  min-height:52px; margin-top:6px;
+  background:var(--gold); border:0; border-radius:8px;
+  color:var(--n0); font-family:var(--body); font-weight:600; font-size:var(--step-3);
+  cursor:pointer;
+  transition:background-color .25s var(--ease);
+}
+.bk__submit:hover{background:var(--cream)}
+
+.bk__done{
+  margin-top:24px; padding:18px;
+  border:1px solid var(--gold-dim); border-radius:8px;
+  color:var(--gold);
+}
+.bk__note{margin:14px 0 0; color:var(--hair-lit); font-size:var(--step-2)}
+
+/* ── Легенда ── */
+.cal__legend{
+  display:flex; flex-wrap:wrap; gap:18px;
+  list-style:none; margin:20px 0 0; padding:0;
+  font-family:var(--mono); font-size:var(--step-1); color:var(--olive);
+  letter-spacing:.06em;
+}
+.cal__legend li{display:flex; align-items:center; gap:8px}
+.cal__legend i{width:14px; height:14px; border-radius:3px; flex:none}
+.cal__legend .k-free{border:1px solid var(--hair-lit)}
+.cal__legend .k-busy{background:repeating-linear-gradient(-45deg,transparent 0 3px,var(--hair) 3px 4px); border:1px solid var(--hair)}
+.cal__legend .k-pick{background:var(--gold)}
+
+/* ── Мобильная раскладка. Держим блок последним в файле. ── */
+@media (max-width:900px){
+  .bk{grid-template-columns:minmax(0,1fr)}
+
+  /* Один месяц на экран, второй доезжает свайпом. */
+  .cal__months{
+    grid-template-columns:none;
+    grid-auto-flow:column;
+    grid-auto-columns:100%;
+    overflow-x:auto;
+    scroll-snap-type:x mandatory;
+    scrollbar-width:none;
+    gap:1.25rem;
+  }
+  .cal__months::-webkit-scrollbar{display:none}
+  .cal__month{scroll-snap-align:start}
+
+  .cal__hint{min-height:3.4em}
+}

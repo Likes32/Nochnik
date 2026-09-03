@@ -60,7 +60,7 @@ console.log("\nHTML — смысловые блоки не спрятаны");
     .map((f) => `${f}::${stripCss(fs.readFileSync(path.join(ROOT, "css", f), "utf8"))}`)
     .join("\n");
   const hits = (all.match(/[^{}]*\{[^{}]*display:\s*none[^{}]*\}/g) || []).filter(
-    (r) => !/\.lite|::before|::after|\[hidden\]|\.sr-only|nav__burger/.test(r)
+    (r) => !/\.lite|::before|::after|::-webkit-scrollbar|\[hidden\]|\.sr-only|nav__burger/.test(r)
   );
   if (hits.length) hits.forEach((r) => fail(`display:none вне разрешённых случаев: ${r.trim().slice(0, 70)}…`));
   else ok("display:none только там, где положено");

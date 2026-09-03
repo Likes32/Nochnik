@@ -1,5 +1,6 @@
 /** Точка входа. Тяжёлое подключаем только там, где оно уместно. */
 import { initFloorplan } from "./floorplan.js";
+import { initCalendar } from "./calendar.js";
 
 /** Тач-устройство: Lenis и GSAP на нём не запускаем — родная инерция плавнее. */
 export const isTouch =
@@ -11,6 +12,9 @@ export const prefersReduced = matchMedia("(prefers-reduced-motion: reduce)").mat
 
 const plan = document.querySelector("#plan");
 if (plan) initFloorplan(plan);
+
+const booking = document.querySelector("#booking");
+if (booking) initCalendar(booking);
 
 /* Навигация: плотная плашка после прокрутки. */
 const nav = document.querySelector("#nav");
