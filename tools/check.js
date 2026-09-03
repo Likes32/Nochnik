@@ -59,8 +59,22 @@ console.log("\nHTML — смысловые блоки не спрятаны");
     .filter((f) => f.endsWith(".css"))
     .map((f) => `${f}::${stripCss(fs.readFileSync(path.join(ROOT, "css", f), "utf8"))}`)
     .join("\n");
+  /**
+   * Правило защищает содержание, а не оформление. Каждое исключение названо
+   * поимённо и с причиной — расширять список только осознанно.
+   */
+  const ALLOWED = [
+    /\.lite/,                    // аварийный облегчённый режим
+    /::before|::after/,          // псевдоэлементы, не содержание
+    /::-webkit-scrollbar/,       // полоса прокрутки, не содержание
+    /\[hidden\]/,                // штатный атрибут
+    /\.sr-only/,                 // наоборот, для скринридеров
+    /nav__burger/,               // на десктопе бургер не нужен, меню видно целиком
+    /\.hero__scroll/,            // подсказка «листайте вниз»: на тач-экране
+                                 // прокрутка очевидна, и это подсказка, не текст
+  ];
   const hits = (all.match(/[^{}]*\{[^{}]*display:\s*none[^{}]*\}/g) || []).filter(
-    (r) => !/\.lite|::before|::after|::-webkit-scrollbar|\[hidden\]|\.sr-only|nav__burger/.test(r)
+    (r) => !ALLOWED.some((re) => re.test(r))
   );
   if (hits.length) hits.forEach((r) => fail(`display:none вне разрешённых случаев: ${r.trim().slice(0, 70)}…`));
   else ok("display:none только там, где положено");

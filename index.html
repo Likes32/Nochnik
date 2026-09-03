@@ -15,6 +15,7 @@
 <link rel="stylesheet" href="css/tokens.css">
 <link rel="stylesheet" href="css/base.css">
 <link rel="stylesheet" href="css/sections.css">
+<link rel="stylesheet" href="css/scenes.css">
 <link rel="stylesheet" href="css/floorplan.css">
 <link rel="stylesheet" href="css/calendar.css">
 <script>document.documentElement.classList.add("js")</script>
@@ -48,7 +49,65 @@
 
   <main id="top">
 
-    <!-- ── 18:40 · План дома ─────────────────────────────────── -->
+    <!-- ── 17:40 · Приезд ─────────────────────────────────────── -->
+    <section class="hero" id="hero">
+      <div class="hero__media" data-shot="hero-wide / hero-tall">
+        <span class="mono">кадр первого экрана</span>
+      </div>
+
+      <div class="hero__body">
+        <p class="mono hero__time">17:40 · приезд</p>
+        <h1>Дом в лесу,<br>который видно издалека</h1>
+        <p class="hero__lead">Одна хижина на своём участке. Баня, купель с подогревом,
+        панорамный торец во всю стену. Ближайший фонарь — в одиннадцати километрах.</p>
+
+        <ul class="hero__chips">
+          <li>сосновый лес</li>
+          <li>баня</li>
+          <li>купель</li>
+          <li>4 спальных места</li>
+        </ul>
+
+        <div class="hero__cta">
+          <a class="btn" href="#booking">Выбрать даты</a>
+          <p class="hero__price num">от 14 900 ₽ <span>за ночь</span></p>
+        </div>
+      </div>
+
+      <a class="hero__scroll mono" href="#house" aria-label="К описанию дома">
+        дальше <span aria-hidden="true">↓</span>
+      </a>
+    </section>
+
+    <!-- ── 18:20 · Дом ────────────────────────────────────────── -->
+    <section class="section house" id="house">
+      <p class="mono section__time"><span>18:20</span></p>
+
+      <div class="section__head">
+        <h2>Шестьдесят два метра, из которых половина — воздух</h2>
+        <p>Гостиная в два света: антресоль не перекрывает торец, поэтому окно
+        работает на всю высоту дома.</p>
+      </div>
+
+      <div class="house__grid">
+        <div class="house__media" data-shot="house.jpg">
+          <span class="mono">дом снаружи, вечер</span>
+        </div>
+
+        <dl class="house__specs">
+          <div><dt>Площадь</dt><dd class="num">62 м²</dd></div>
+          <div><dt>Спальных мест</dt><dd class="num">4</dd></div>
+          <div><dt>Наверху</dt><dd>кровать 180 × 200</dd></div>
+          <div><dt>Внизу</dt><dd>раскладной диван</dd></div>
+          <div><dt>Панорамный торец</dt><dd class="num">5 м</dd></div>
+          <div><dt>Отопление</dt><dd>камин и кондиционер</dd></div>
+          <div><dt>Воздух</dt><dd>приточная вентиляция</dd></div>
+          <div><dt>Интернет</dt><dd>Wi-Fi по всему дому</dd></div>
+        </dl>
+      </div>
+    </section>
+
+    <!-- ── 18:40 · Планы ─────────────────────────────────── -->
     <section class="section plan" id="plan">
       <p class="mono section__time"><span>18:40</span></p>
 
@@ -313,6 +372,129 @@
       </p>
     </section>
 
+    <!-- ── 19:30 · Ужин ───────────────────────────────────────── -->
+    <section class="section scene" id="dinner">
+      <p class="mono section__time"><span>19:30</span></p>
+      <div class="scene__media" data-shot="terrace.jpg">
+        <span class="mono">терраса, гриль</span>
+      </div>
+      <div class="scene__body">
+        <h2>Ужин на террасе</h2>
+        <p>Гриль газовый. Баллон полный, решётки чистые — не нужно везти дрова,
+        колоть их и полчаса раздувать угли. Нажали, подождали десять минут, готовите.</p>
+        <p class="scene__aside mono">стол на четверых · посуда в доме</p>
+      </div>
+    </section>
+
+    <!-- ── 21:00 · Баня ───────────────────────────────────────── -->
+    <section class="section scene scene--flip" id="sauna">
+      <p class="mono section__time"><span>21:00</span></p>
+      <div class="scene__media" data-shot="sauna.jpg">
+        <span class="mono">парная</span>
+      </div>
+      <div class="scene__body">
+        <h2>Баня</h2>
+        <p>Отдельная постройка в двадцати шагах от дома. Топим по запросу —
+        скажите при бронировании, к вашему приезду будет готова.</p>
+        <p>Веники, простыни и шапки на месте. Из парной удобнее всего сразу
+        в купель: она рядом.</p>
+        <p class="scene__aside mono">3 500 ₽ · по запросу</p>
+      </div>
+    </section>
+
+    <!-- ── 22:10 · Купель ─────────────────────────────────────── -->
+    <section class="section scene" id="tub">
+      <p class="mono section__time"><span>22:10</span></p>
+      <div class="scene__media" data-shot="tub.jpg">
+        <span class="mono">купель с подсветкой</span>
+      </div>
+      <div class="scene__body">
+        <h2>Купель</h2>
+        <p>Подогрев и фильтрация автоматические. Ничего не топится и не носится
+        вёдрами — вода готова к вашему приезду и держит температуру всю ночь.</p>
+        <p>Чаша не деревянная, с антикоррозийным покрытием, внутри подсветка.
+        В темноте она светится вместе с домом.</p>
+        <p class="scene__aside mono">включена в стоимость</p>
+      </div>
+    </section>
+
+    <!-- ── 23:00 · Тишина ─────────────────────────────────────── -->
+    <section class="section quiet" id="quiet">
+      <p class="mono section__time"><span>23:00</span></p>
+
+      <div class="quiet__body">
+        <p class="quiet__lead">Wi-Fi ловит.<br>Колонки нет — и не будет.</p>
+        <p>Сюда едут слушать лес, а не чужой плейлист. Поэтому музыку мы не ставим
+        и вас просим о том же. Интернет при этом работает нормально: глушить связь,
+        чтобы изобразить «цифровой детокс», — так себе гостеприимство.</p>
+
+        <div class="quiet__facts">
+          <p><span class="num">11 км</span> до ближайшего фонаря</p>
+          <p><span class="num">1 нажатие</span> кнопки вызова охраны у входа</p>
+        </div>
+
+        <p class="quiet__note">Участок свой, ворота на ключе и закрываются кнопкой.
+        Одиннадцать километров темноты не значит, что вы одни: тревожная кнопка
+        у входа вызывает вооружённую охрану.</p>
+      </div>
+    </section>
+
+    <!-- ── 06:10 · Утро ───────────────────────────────────────── -->
+    <section class="section scene scene--flip scene--dawn" id="morning">
+      <p class="mono section__time"><span>06:10</span></p>
+      <div class="scene__media" data-shot="morning.jpg">
+        <span class="mono">туман над просекой</span>
+      </div>
+      <div class="scene__body">
+        <h2>Утро</h2>
+        <p>Окно у изголовья смотрит на восток, и солнце сюда приходит рано —
+        поэтому там плотная занавеска. Если проснулись, кофемашина внизу.</p>
+        <p>Выезд до двенадцати, но торопиться никто не гонит.</p>
+      </div>
+    </section>
+
+    <!-- ── Практика ───────────────────────────────────────────── -->
+    <section class="section practice" id="practice">
+      <p class="mono section__time"><span>перед выездом</span></p>
+
+      <div class="section__head">
+        <h2>Что нужно знать заранее</h2>
+      </div>
+
+      <ul class="practice__list">
+        <li>
+          <h3>Дорога</h3>
+          <p>Час сорок от города. Последние шесть километров — грунтовка;
+          зимой её чистят, но низкой машине там тяжело после дождя.</p>
+        </li>
+        <li>
+          <h3>Заезд и выезд</h3>
+          <p>Заезд с 15:00, выезд до 12:00. Ворота открываются кнопкой,
+          код пришлём накануне. Парковка на две машины за воротами.</p>
+        </li>
+        <li>
+          <h3>Что включено</h3>
+          <p>Купель, гриль с полным баллоном, кофе и чай, полотенца и бельё.
+          Баня — отдельно, 3 500 ₽, по запросу.</p>
+        </li>
+        <li>
+          <h3>Что взять</h3>
+          <p>Продукты: магазина рядом нет. Обувь для леса. Тапки,
+          если не любите ходить босиком по дереву.</p>
+        </li>
+        <li>
+          <h3>С детьми</h3>
+          <p>Лестница на антресоль крутая, ограждение рассчитано на взрослых.
+          С малышами до пяти лет мы бы не советовали.</p>
+        </li>
+        <li>
+          <h3>С собакой</h3>
+          <p>Можно, участок огорожен. Предупредите заранее — уберём то,
+          что можно погрызть.</p>
+        </li>
+      </ul>
+    </section>
+
     <!-- ── Бронирование ───────────────────────────────────────── -->
     <section class="section booking" id="booking">
       <p class="mono section__time"><span>даты</span></p>
@@ -368,6 +550,18 @@
     </section>
 
   </main>
+
+  <footer class="foot">
+    <div class="foot__brand">
+      <svg viewBox="0 0 96 96" aria-hidden="true" focusable="false">
+        <path d="M48 11 L87 81 L9 81 Z" fill="none" stroke="currentColor" stroke-width="4.5" stroke-linejoin="round"/>
+        <path d="M41 81 L41 57 L55 57 L55 81 Z" fill="#F0B54A"/>
+      </svg>
+      <p>Ночник<span class="mono">дом в лесу</span></p>
+    </div>
+    <p class="foot__disclaimer">Демонстрационный проект. Объект вымышленный,
+    занятость в календаре условная, заявка никуда не уходит.</p>
+  </footer>
 
 </div>
 
