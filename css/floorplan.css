@@ -1,38 +1,94 @@
-/* План дома. Единственный источник света на схеме — панорамное окно,
-   как и в логотипе: там свет тоже единственное цветное пятно. */
+/* Планы участка и этажей.
+   Источников света на схемах ровно столько, сколько их в реальности:
+   панорамный торец и купель. Всё остальное — линия и заливка. */
 
-/* Колонки строго равные: оба уровня шириной 6 метров и обязаны
-   рисоваться в одном масштабе — иначе это не план, а картинка. */
+.plan__site{margin:clamp(2rem,5vw,4rem) 0 0}
+.plan__site .plan__svg{max-width:820px}
+
+.plan__level figcaption,
+.plan__site figcaption{
+  margin-bottom:14px;
+  display:flex; align-items:baseline; gap:12px; flex-wrap:wrap;
+}
+.plan__scale{color:var(--hair-lit); letter-spacing:.08em}
+
+/* Оба этажа — один viewBox по высоте и равные колонки,
+   иначе уровни разъезжаются по масштабу и план начинает врать. */
 .plan__grid{
   display:grid;
   grid-template-columns:repeat(2,minmax(0,1fr));
   gap:clamp(1.5rem,4vw,4rem);
   align-items:start;
-  margin-top:clamp(2rem,5vw,4rem);
+  margin-top:clamp(2.5rem,6vw,4.5rem);
 }
 
 .plan__level{margin:0}
-.plan__level figcaption{margin-bottom:14px}
-
 .plan__svg{width:100%; height:auto; overflow:visible}
 
-/* Стены */
+/* ── Стены и границы ── */
 .wall{fill:none; stroke:var(--cream); stroke-width:3; stroke-linejoin:round}
 .wall--inner{stroke-width:1.5; stroke:var(--olive)}
 
-/* Помещения */
+.site__bound{fill:none; stroke:var(--hair-lit); stroke-width:1.5; stroke-dasharray:10 8}
+.site__note,
+.void__label{
+  fill:var(--hair-lit);
+  font-family:var(--mono); font-size:12px; letter-spacing:.08em;
+}
+
+.trees path{fill:var(--n2); stroke:var(--olive); stroke-width:1}
+
+/* ── Свет на участке: LED-контур дома и садовые фонарики ──
+   Это не декор схемы — так участок и выглядит ночью. */
+.led{
+  fill:none; stroke:var(--gold); stroke-width:2; opacity:.75;
+  transition:opacity .28s var(--ease);
+  pointer-events:none;
+}
+.room:hover .led,
+.room.is-active .led{opacity:1}
+
+.paths{pointer-events:none}
+.paths__line{fill:none; stroke:var(--hair-lit); stroke-width:6; stroke-linecap:round}
+.paths__lamp circle{fill:var(--gold); opacity:.6}
+
+/* ── Ворота ── */
+.gate{cursor:pointer}
+.gate__leaf{
+  stroke:var(--cream); stroke-width:4; fill:none; stroke-linecap:round;
+  transition:stroke .28s var(--ease);
+}
+.gate:hover .gate__leaf,
+.gate.is-active .gate__leaf{stroke:var(--gold)}
+.gate:focus{outline:none}
+.gate:focus-visible .gate__leaf{stroke:var(--gold); stroke-width:6}
+
+/* ── Кнопка вызова охраны ── */
+.panic{cursor:pointer}
+.panic__body{
+  fill:var(--n0); stroke:var(--cream); stroke-width:1.5;
+  transition:stroke .28s var(--ease);
+}
+.panic__dot{fill:var(--gold); opacity:.85; transition:opacity .28s var(--ease)}
+.panic:hover .panic__body,
+.panic.is-active .panic__body{stroke:var(--gold)}
+.panic:hover .panic__dot,
+.panic.is-active .panic__dot{opacity:1}
+.panic:focus{outline:none}
+.panic:focus-visible .panic__body{stroke:var(--gold); stroke-width:3}
+
+/* ── Помещения ── */
 .room{cursor:pointer}
 .room__fill{
-  fill:var(--n2);
-  stroke:transparent;
-  stroke-width:2;
+  fill:var(--n2); stroke:transparent; stroke-width:2;
   transition:fill .28s var(--ease), stroke .28s var(--ease);
 }
 .room__fill--outdoor{fill:transparent; stroke:var(--hair-lit); stroke-dasharray:5 6}
 
 .room:hover .room__fill,
-.room:focus-visible .room__fill,
 .room.is-active .room__fill{fill:var(--n3); stroke:var(--gold)}
+.room:focus{outline:none}
+.room:focus-visible .room__fill{stroke:var(--gold); stroke-width:3}
 
 .room__label{
   fill:var(--cream);
@@ -44,47 +100,58 @@
   font-family:var(--mono); font-size:12px; font-weight:400; letter-spacing:.06em;
 }
 
-/* Фокус рисуем сами: у SVG-групп outline ведёт себя непредсказуемо. */
-.room:focus{outline:none}
-.room:focus-visible .room__fill{stroke:var(--gold); stroke-width:3}
+/* ── Купель: второй источник света на участке ── */
+.site__tub{
+  fill:var(--n2); stroke:var(--cream); stroke-width:2;
+  transition:fill .28s var(--ease), stroke .28s var(--ease);
+}
+.site__tub-glow{fill:var(--gold); opacity:.5; transition:opacity .28s var(--ease)}
+.room:hover .site__tub,
+.room.is-active .site__tub{fill:var(--n3); stroke:var(--gold)}
+.room:hover .site__tub-glow,
+.room.is-active .site__tub-glow{opacity:.85}
+.room:focus-visible .site__tub{stroke:var(--gold); stroke-width:3}
 
-/* Кровать */
-.bed{fill:none; stroke:var(--olive); stroke-width:1.5; stroke-dasharray:4 5}
+/* ── Лестница ── */
+.stairs{stroke:var(--olive); stroke-width:1; fill:none; pointer-events:none}
 
-/* Печь */
-.stove{cursor:pointer}
-.stove__body{fill:var(--n0); stroke:var(--cream); stroke-width:1.5}
-.stove__glow{fill:var(--gold); opacity:.85; transition:opacity .28s var(--ease)}
-.stove:hover .stove__glow,
-.stove.is-active .stove__glow{opacity:1}
-.stove:focus{outline:none}
-.stove:focus-visible .stove__body{stroke:var(--gold); stroke-width:3}
+/* ── Мебель: тонкая линия, чтобы не спорить со стенами ── */
+.furn{pointer-events:none}
+.furn__bed{fill:none; stroke:var(--olive); stroke-width:1.5; stroke-dasharray:5 5}
+.furn__soft{fill:none; stroke:var(--olive); stroke-width:1.5; opacity:.8}
+.furn__lamp{fill:var(--gold); opacity:.35}
+.furn__label{
+  fill:var(--olive); opacity:.75;
+  font-family:var(--mono); font-size:11px; letter-spacing:.05em;
+}
 
-/* Панорамное окно */
+/* ── Проёмы и остекление ── */
+.door path{stroke:var(--n1); stroke-width:5; fill:none}
 .glazing path{stroke:var(--gold); stroke-width:3; fill:none}
 .glazing .glazing__inner{stroke-width:1.5; opacity:.55}
+.glazing__head{stroke:var(--gold-dim); stroke-width:3; fill:none}
 .glazing__label{
   fill:var(--gold-dim);
   font-family:var(--mono); font-size:12px; letter-spacing:.08em;
   pointer-events:none;
 }
 
-/* Ограждение */
-.railing{cursor:pointer}
+/* ── Двусветное пространство ── */
+.void path{fill:none; stroke:var(--hair); stroke-width:1; stroke-dasharray:3 7}
+
+/* ── Ограждение ── */
 .railing__line{
   stroke:var(--gold-dim); stroke-width:2; stroke-dasharray:12 7; fill:none;
   transition:stroke .28s var(--ease);
 }
 .railing:hover .railing__line,
 .railing.is-active .railing__line{stroke:var(--gold)}
-.railing:focus{outline:none}
 .railing:focus-visible .railing__line{stroke:var(--gold); stroke-width:3}
 
-/* Подпись. Минимальная высота держит блок от прыжков при смене текста. */
+/* ── Подпись. Минимальная высота держит блок от прыжков. ── */
 .plan__note{
   margin-top:clamp(1.5rem,3vw,2.5rem);
-  min-height:3.4em;
-  max-width:52ch;
+  min-height:3.4em; max-width:54ch;
   color:var(--olive);
   border-left:2px solid var(--gold-dim);
   padding-left:18px;
@@ -92,10 +159,12 @@
 
 @media (max-width:900px){
   .plan__grid{grid-template-columns:minmax(0,1fr); gap:2.5rem}
-  .plan__note{min-height:4.5em}
-  /* На узком экране подписи в SVG масштабируются вместе с ним и мельчают —
-     поднимаем кегль, чтобы остаться читаемыми. */
-  .room__label{font-size:19px}
-  .room__area{font-size:15px}
-  .glazing__label{font-size:15px}
+  .plan__note{min-height:5em}
+  /* SVG масштабируется вместе с шириной, подписи мельчают — поднимаем кегль. */
+  .room__label{font-size:20px}
+  .room__area,
+  .glazing__label,
+  .site__note,
+  .void__label{font-size:15px}
+  .furn__label{font-size:14px}
 }
