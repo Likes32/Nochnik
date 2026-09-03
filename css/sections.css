@@ -1,0 +1,77 @@
+/* Навигация. Секции добавляются в задаче 5. */
+
+.nav{
+  position:fixed; inset:0 0 auto 0; z-index:50;
+  display:flex; align-items:center; gap:24px;
+  padding:22px var(--pad-side);
+  color:var(--cream);
+  transition:padding .35s var(--ease), background-color .35s var(--ease);
+}
+
+.nav__brand{
+  display:flex; align-items:center; gap:11px;
+  color:inherit; font-family:var(--display); font-size:1.5rem; letter-spacing:.02em;
+}
+.nav__brand svg{width:28px; height:28px; flex:none}
+
+.nav__menu{
+  margin-left:auto;
+  display:flex; align-items:center; gap:30px;
+  font-size:var(--step-2);
+}
+.nav__menu a{color:var(--cream); opacity:.82}
+.nav__menu a:hover{opacity:1; color:var(--gold)}
+
+.nav__cta{
+  border:1px solid var(--hair-lit);
+  border-radius:999px;
+  padding:9px 20px;
+  opacity:1 !important;
+}
+.nav__cta:hover{border-color:var(--gold); background:rgba(240,181,74,.08)}
+
+.nav__burger{display:none}
+
+/* Плотная плашка после прокрутки. backdrop-filter только на десктопе —
+   на мобиле это дорогой фиксированный размытый слой. */
+@media (min-width:901px){
+  .nav.scrolled{
+    padding:12px var(--pad-side);
+    background:rgba(13,19,15,.72);
+    backdrop-filter:blur(14px);
+    border-bottom:1px solid var(--hair);
+  }
+}
+
+@media (max-width:900px){
+  .nav{padding:16px var(--pad-side)}
+  .nav.scrolled{background:var(--n1); border-bottom:1px solid var(--hair)}
+
+  .nav__burger{
+    display:flex; flex-direction:column; justify-content:center; gap:6px;
+    margin-left:auto; width:44px; height:44px;
+    background:none; border:0; cursor:pointer; padding:0;
+  }
+  .nav__burger span[aria-hidden]{
+    display:block; height:1.5px; width:24px; background:var(--cream);
+    transition:transform .3s var(--ease), opacity .3s var(--ease);
+  }
+  .nav__burger[aria-expanded="true"] span[aria-hidden]:first-of-type{transform:translateY(3.75px) rotate(45deg)}
+  .nav__burger[aria-expanded="true"] span[aria-hidden]:last-of-type{transform:translateY(-3.75px) rotate(-45deg)}
+
+  /* Полноэкранное меню, а не мелкий дропдаун.
+     Скрыто через видимость и высоту — блок остаётся в потоке для скринридера. */
+  .nav__menu{
+    position:fixed; inset:0; margin:0;
+    flex-direction:column; align-items:flex-start; justify-content:center;
+    gap:8px; padding:0 var(--pad-side);
+    background:var(--n0);
+    font-family:var(--display); font-size:2rem;
+    opacity:0; visibility:hidden; pointer-events:none;
+    transition:opacity .32s var(--ease), visibility .32s;
+  }
+  .nav__menu a{padding:12px 0; opacity:1}
+  .nav__cta{margin-top:20px; font-family:var(--body); font-size:var(--step-3)}
+
+  .nav.menu-open .nav__menu{opacity:1; visibility:visible; pointer-events:auto}
+}

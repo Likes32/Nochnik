@@ -1,0 +1,42 @@
+/* Токены «Ночника». Значения зафиксированы спекой — не менять по вкусу. */
+
+:root{
+  /* Ночь, доходящая до рассвета */
+  --n0:#070A08;      /* самая тёмная точка, секция «Тишина» */
+  --n1:#0D130F;      /* базовый фон страницы */
+  --n2:#16211A;      /* хвоя, сумерки, поверхности */
+  --n3:#1B2721;      /* приподнятые поверхности */
+  --dawn:#9FA898;    /* рассвет */
+
+  --gold:#F0B54A;    /* акцент — тот же свет, что в окне логотипа */
+  --gold-dim:#C99235;
+
+  --cream:#E8E3D6;   /* основной текст */
+  --olive:#8C9585;   /* вторичный текст */
+  --hair:#1E2820;    /* волосяные разделители */
+  --hair-lit:#2A3830;
+
+  /* Гарнитуры */
+  --display:"Cormorant Garamond",Georgia,"Times New Roman",serif;
+  --body:"Onest",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;
+  --mono:"JetBrains Mono",ui-monospace,"Cascadia Mono",Consolas,monospace;
+
+  /* Шкала. Нижняя граница clamp — мобильное значение из спеки. */
+  --step-6:clamp(2.5rem, 7vw, 6.5rem);      /* H1   40 → 104px */
+  --step-5:clamp(1.875rem, 4vw, 3.5rem);    /* H2   30 → 56px  */
+  --step-4:clamp(1.25rem, 2vw, 1.75rem);    /* H3   20 → 28px  */
+  --step-3:clamp(1rem, 1.1vw, 1.125rem);    /* текст 16 → 18px */
+  --step-2:0.9375rem;                       /* мелкий текст 15px */
+  --step-1:0.75rem;                         /* моно 12px — на мобиле НЕ уменьшается */
+
+  /* Ритм */
+  --pad-section:clamp(5.5rem, 10vw, 12.5rem); /* 88 → 200px */
+  --pad-side:clamp(1.25rem, 5vw, 5rem);       /* 20 → 80px  */
+  --rail:clamp(0px, 14vw, 160px);             /* поле под маргиналии меток времени */
+  --measure:64ch;
+
+  /* Прогресс ночи: 0 — глубокая тьма, 1 — рассвет. Пишет js/night.js. */
+  --night:0;
+
+  --ease:cubic-bezier(.22,.61,.36,1);
+}
