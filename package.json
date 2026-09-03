@@ -4,6 +4,8 @@
   "type": "module",
   "scripts": {
     "test": "node --test",
-    "fonts": "node tools/fetch-fonts.js"
+    "fonts": "node tools/fetch-fonts.js",
+    "check": "node tools/check.js",
+    "verify": "node tools/check.js && node --test"
   }
 }

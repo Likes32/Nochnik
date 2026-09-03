@@ -83,7 +83,9 @@
   fill:var(--n2); stroke:transparent; stroke-width:2;
   transition:fill .28s var(--ease), stroke .28s var(--ease);
 }
-.room__fill--outdoor{fill:transparent; stroke:var(--hair-lit); stroke-dasharray:5 6}
+/* pointer-events:all обязателен: SVG с прозрачной заливкой указатель не ловит,
+   и клик проваливается на фигуру под ней. */
+.room__fill--outdoor{fill:transparent; stroke:var(--hair-lit); stroke-dasharray:5 6; pointer-events:all}
 
 .room:hover .room__fill,
 .room.is-active .room__fill{fill:var(--n3); stroke:var(--gold)}
@@ -157,6 +159,30 @@
   padding-left:18px;
 }
 
+/* ── Обеденная зона: подзона внутри гостиной ── */
+.room__fill--zone{
+  fill:transparent;
+  pointer-events:all;
+  stroke:var(--hair-lit);
+  stroke-width:1;
+  stroke-dasharray:3 6;
+}
+.dining:hover .room__fill--zone,
+.dining.is-active .room__fill--zone{fill:var(--n3); stroke:var(--gold); stroke-dasharray:none}
+
+/* Камин — третий источник света в доме после торца и купели. */
+.furn__stove{fill:var(--n0); stroke:var(--cream); stroke-width:1.5}
+.furn__stove-glow{fill:var(--gold); opacity:.8; transition:opacity .28s var(--ease)}
+.dining:hover .furn__stove-glow,
+.dining.is-active .furn__stove-glow{opacity:1}
+
+.furn__table{stroke-dasharray:none}
+
+/* Лицевая сторона дивана: показывает, куда он смотрит. */
+.furn__face{stroke:var(--gold-dim); stroke-width:2.5; fill:none; opacity:.7}
+
+/* ── Мобильная раскладка. Держим блок последним в файле,
+      чтобы ничто ниже его случайно не перебило. ── */
 @media (max-width:900px){
   .plan__grid{grid-template-columns:minmax(0,1fr); gap:2.5rem}
   .plan__note{min-height:5em}

@@ -147,10 +147,10 @@
         <figure class="plan__level">
           <figcaption class="mono">Первый этаж · 42 м² <span class="plan__scale">1 : 100</span></figcaption>
           <svg viewBox="0 0 680 800" class="plan__svg" role="img"
-               aria-label="План первого этажа: коридор с задним входом, ванная и кухня по левой стене, лестница справа, гостиная с кроватью и панорамным торцом">
+               aria-label="План первого этажа: коридор с задним входом и вешалкой под лестницей, ванная и кухня по левой стене, гостиная с диваном, гамаком и обеденной зоной у камина, панорамный торец с выходом на террасу">
 
             <g class="room" tabindex="0" role="button"
-               data-note="Коридор. Задний вход с подъезда: сюда заходят с сумками и здесь разуваются.">
+               data-note="Коридор. Задний вход с парковки: здесь разуваются, вешалка убрана под лестницу.">
               <path class="room__fill" d="M240 40 H540 V190 H240 Z"/>
               <text class="room__label" x="390" y="108">Коридор
                 <tspan class="room__area" x="390" dy="21">4,5 м²</tspan>
@@ -181,23 +181,47 @@
             </g>
 
             <g class="room" tabindex="0" role="button"
-               data-note="Гостиная в два света. Кровать изголовьем к правой стене, складной диван и подвесное кресло-гамак у окна.">
+               data-note="Гостиная в два света. Складной диван спинкой к правой стене, подвесное кресло-гамак и обеденная зона у камина.">
               <path class="room__fill" d="M240 190 H540 V340 H640 V740 H40 V540 H240 Z"/>
               <text class="room__label" x="330" y="440">Гостиная
                 <tspan class="room__area" x="330" dy="21">24,5 м²</tspan>
               </text>
             </g>
 
-            <!-- мебель -->
+            <!-- обеденная зона: от кухни до выхода, в стороне от прохода на террасу -->
+            <g class="room dining" tabindex="0" role="button"
+               data-note="Обеденная зона у камина: стол на четверых и два стула. Стоит в стороне от прохода на террасу — мимо можно ходить с тарелками.">
+              <path class="room__fill room__fill--zone" d="M40 560 H280 V740 H40 Z"/>
+              <rect class="furn__stove" x="56" y="586" width="46" height="64" rx="3"/>
+              <circle class="furn__stove-glow" cx="79" cy="618" r="10"/>
+              <circle class="furn__soft furn__table" cx="186" cy="650" r="44"/>
+              <circle class="furn__soft" cx="186" cy="580" r="19"/>
+              <circle class="furn__soft" cx="186" cy="720" r="19"/>
+              <text class="furn__label" x="79" y="672" text-anchor="middle">камин</text>
+              <text class="furn__label" x="186" y="655" text-anchor="middle">стол</text>
+            </g>
+
+            <!-- мягкая зона -->
             <g class="furn" aria-hidden="true">
-              <rect class="furn__bed" x="460" y="400" width="180" height="200" rx="4"/>
-              <text class="furn__label" x="550" y="508" text-anchor="middle">кровать</text>
+              <rect class="furn__soft" x="548" y="420" width="92" height="200" rx="6"/>
+              <text class="furn__label" x="594" y="528" text-anchor="middle">диван</text>
+              <path class="furn__face" d="M540 440 V600"/>
 
-              <rect class="furn__soft" x="120" y="632" width="290" height="76" rx="6"/>
-              <text class="furn__label" x="265" y="678" text-anchor="middle">диван</text>
+              <circle class="furn__soft" cx="470" cy="672" r="40"/>
+              <text class="furn__label" x="470" y="678" text-anchor="middle">гамак</text>
+            </g>
 
-              <circle class="furn__soft" cx="500" cy="670" r="42"/>
-              <text class="furn__label" x="500" y="676" text-anchor="middle">гамак</text>
+            <!-- вешалка под лестницей -->
+            <g class="furn" aria-hidden="true">
+              <rect class="furn__soft" x="466" y="52" width="66" height="30" rx="4"/>
+              <text class="furn__label" x="499" y="102" text-anchor="middle">вешалка</text>
+            </g>
+
+            <!-- климат -->
+            <g class="panic room" tabindex="0" role="button"
+               data-note="Кондиционер и приточная вентиляция. Воздух с улицы идёт через фильтр и подогревается, поэтому окна зимой открывать не нужно.">
+              <rect class="panic__body" x="596" y="392" width="34" height="20" rx="3"/>
+              <text class="room__area" x="590" y="382" text-anchor="end">климат</text>
             </g>
 
             <!-- стены -->
@@ -212,10 +236,10 @@
 
             <!-- кнопка вызова охраны -->
             <g class="panic room" tabindex="0" role="button"
-               data-note="Кнопка вызова охраны у входа. Одно нажатие — и выезжает группа быстрого реагирования. Одиннадцать километров до фонаря не значит, что вы одни.">
+               data-note="Тревожная кнопка у входа. Одно нажатие — и выезжает вооружённая охрана. Одиннадцать километров до ближайшего фонаря не значит, что вы одни.">
               <rect class="panic__body" x="252" y="150" width="34" height="26" rx="4"/>
               <circle class="panic__dot" cx="269" cy="163" r="6"/>
-              <text class="room__area" x="296" y="168">кнопка ГБР</text>
+              <text class="room__area" x="296" y="168">вызов охраны</text>
             </g>
 
             <!-- панорамный торец с дверью на террасу -->
