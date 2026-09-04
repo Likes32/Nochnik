@@ -2,6 +2,7 @@
 import { initFloorplan } from "./floorplan.js";
 import { initCalendar } from "./calendar.js";
 import { initNight } from "./night.js";
+import { initPlanner } from "./planner.js";
 import { initReveal, initPerfGuard } from "./reveal.js";
 
 /** Тач-устройство: Lenis и GSAP на нём не запускаем — родная инерция плавнее. */
@@ -12,8 +13,8 @@ export const isTouch =
 
 export const prefersReduced = matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-const plan = document.querySelector("#plan");
-if (plan) initFloorplan(plan);
+const planner = document.querySelector("#planner");
+if (planner) { initFloorplan(planner); initPlanner(planner); }
 
 const booking = document.querySelector("#booking");
 if (booking) initCalendar(booking);

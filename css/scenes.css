@@ -227,10 +227,10 @@ html:not(.js) .hero__body > *,
 .tile--mark svg{width:46%; height:46%; margin-top:14%}
 
 /* ── Сцены ночи ── */
-/* Высота кадра задана прямо, а не пропорцией: при коротком тексте
-   вертикаль во весь рост давала картинку впятеро выше текстового блока.
-   Фиксированная высота держит ритм и укорачивает страницу. */
-.scene__media{height:clamp(300px,38vh,460px)}
+/* Кадр тянется по высоте текста: сетка растягивает элементы строки,
+   поэтому фиксированную высоту не задаём — только нижнюю границу,
+   чтобы у коротких сцен картинка не съёживалась. */
+.scene__media{min-height:clamp(300px,34vh,400px)}
 
 /* Точка кадрирования под конкретный снимок. Вертикальный кадр в широком
    слоте по умолчанию берёт середину — а сюжет часто ниже или выше неё. */
@@ -266,17 +266,34 @@ html:not(.js) .hero__body > *,
 }
 .quiet__body > p{color:#CFCBBE}
 
-.quiet__facts{
-  display:flex; flex-wrap:wrap; gap:clamp(1.5rem,5vw,4rem);
-  margin:clamp(2rem,4vw,3rem) 0;
-  padding:clamp(1.25rem,3vw,1.75rem) 0;
-  border-top:1px solid var(--hair); border-bottom:1px solid var(--hair);
+/* ── Шкала темноты ──────────────────────────────────────────────
+   Правая половина секции пустовала. Заполнять её декором было бы
+   против смысла — это пауза страницы. Поэтому пустота получила работу:
+   слева дом, справа через одиннадцать километров ближайший фонарь,
+   между ними ничего. Пустота и есть те самые километры. */
+.dark{
+  margin:clamp(2.5rem,6vw,4.5rem) 0 clamp(2rem,4vw,3rem);
 }
-.quiet__facts p{margin:0; color:var(--olive); font-size:var(--step-2); max-width:none}
-.quiet__facts .num{
-  display:block; color:var(--gold);
-  font-family:var(--display); font-size:2rem; line-height:1.1; margin-bottom:2px;
+.dark__svg{width:100%; height:auto; overflow:visible}
+
+.dark__line{stroke:var(--hair-lit); stroke-width:1; fill:none}
+.dark__ticks{stroke:var(--hair-lit); stroke-width:1; fill:none; opacity:.7}
+
+.dark__home{color:var(--gold)}
+.dark__glow{fill:var(--gold); opacity:.14}
+
+/* Фонарь еле теплится: он в одиннадцати километрах. */
+.dark__lamp{fill:var(--olive); opacity:.55}
+
+.dark__span{
+  fill:var(--gold-dim);
+  font-family:var(--mono); font-size:15px; letter-spacing:.14em;
 }
+.dark__label{
+  fill:var(--olive);
+  font-family:var(--mono); font-size:14px; letter-spacing:.1em;
+}
+
 .quiet__note{color:var(--olive); font-size:var(--step-2)}
 
 /* Рассвет: секция утра светлее остальных. */
@@ -360,10 +377,13 @@ html:not(.js) .hero__body > *,
     border-radius:0; border-left:0; border-right:0;
   }
   /* На узком экране вертикаль во весь рост слишком высокая — поджимаем. */
-  .scene__media{height:clamp(260px,42vh,380px)}
+  .scene__media{min-height:0; height:clamp(260px,42vh,380px)}
   .scene__body{padding:1.75rem 0 0}
 
-  .quiet__facts{flex-direction:column; gap:1.25rem}
+  /* На узком экране подписи в SVG мельчают вместе со шкалой. */
+  .dark__span{font-size:26px}
+  .dark__label{font-size:24px}
+  .dark{margin-block:2.5rem 2rem}
 
   .practice__list{grid-template-columns:minmax(0,1fr); gap:0}
 

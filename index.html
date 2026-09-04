@@ -176,13 +176,47 @@
 
       <div class="section__head">
         <h2>Всё, что здесь есть, — на одной странице</h2>
-        <p>Участок, первый этаж и антресоль. Наведите на любой объект —
-        расскажу, что там.</p>
+        <p>Участок, первый этаж и антресоль: восемнадцать объектов с подписями —
+        от ворот до кнопки вызова охраны. Планы открываются поверх страницы,
+        чтобы не занимать её собой.</p>
       </div>
 
-      <!-- ── Участок ── -->
-      <figure class="plan__site">
-        <figcaption class="mono">Участок · 30 × 21 м <span class="plan__scale">масштаб 1 : 50</span></figcaption>
+      <button class="btn btn--ghost" type="button" data-plans-open
+              aria-haspopup="dialog" aria-controls="planner">
+        Открыть планы <span aria-hidden="true">→</span>
+      </button>
+    </section>
+
+    <dialog class="planner" id="planner" aria-label="Планы дома и участка">
+      <header class="planner__bar">
+        <div class="planner__tabs" role="tablist" aria-label="Уровни">
+          <button class="planner__tab" type="button" role="tab"
+                  id="tab-site" aria-controls="panel-site"
+                  aria-selected="true" tabindex="0">
+            Участок<span class="mono">30 × 21 м</span>
+          </button>
+          <button class="planner__tab" type="button" role="tab"
+                  id="tab-floor" aria-controls="panel-floor"
+                  aria-selected="false" tabindex="-1">
+            Первый этаж<span class="mono">42 м²</span>
+          </button>
+          <button class="planner__tab" type="button" role="tab"
+                  id="tab-loft" aria-controls="panel-loft"
+                  aria-selected="false" tabindex="-1">
+            Антресоль<span class="mono">20 м²</span>
+          </button>
+        </div>
+
+        <button class="planner__close" type="button" data-plans-close>
+          <span class="sr-only">Закрыть планы</span>
+          <span aria-hidden="true">✕</span>
+        </button>
+      </header>
+
+      <div class="planner__stage">
+        <div class="planner__panel" id="panel-site" role="tabpanel"
+             aria-labelledby="tab-site">
+          <figure class="plan__site">
         <div class="plan__scroll"><svg viewBox="0 0 680 500" class="plan__svg" role="img"
              aria-label="План участка: дом с террасой, купель, баня, газовый гриль, подъезд и сосновый лес по границе">
 
@@ -264,12 +298,10 @@
           <text class="site__note" x="640" y="446" text-anchor="end">по границе — сосновый лес</text>
         </svg></div>
       </figure>
-
-      <!-- ── Этажи, строго в одном масштабе ── -->
-      <div class="plan__grid">
-
-        <figure class="plan__level">
-          <figcaption class="mono">Первый этаж · 42 м² <span class="plan__scale">1 : 100</span></figcaption>
+        </div>
+        <div class="planner__panel" id="panel-floor" role="tabpanel"
+             aria-labelledby="tab-floor" hidden>
+          <figure class="plan__level">
           <div class="plan__scroll"><svg viewBox="0 0 680 800" class="plan__svg" role="img"
                aria-label="План первого этажа: коридор с задним входом и вешалкой под лестницей, ванная и кухня по левой стене, гостиная с диваном, гамаком и обеденной зоной у камина, панорамный торец с выходом на террасу">
 
@@ -376,9 +408,10 @@
             <text class="glazing__label" x="340" y="770" text-anchor="middle">панорамный торец · выход на террасу</text>
           </svg></div>
         </figure>
-
-        <figure class="plan__level">
-          <figcaption class="mono">Антресоль · 20 м² <span class="plan__scale">1 : 100</span></figcaption>
+        </div>
+        <div class="planner__panel" id="panel-loft" role="tabpanel"
+             aria-labelledby="tab-loft" hidden>
+          <figure class="plan__level">
           <div class="plan__scroll"><svg viewBox="0 0 680 800" class="plan__svg" role="img"
                aria-label="План антресоли: двуспальная кровать, окно с занавеской у изголовья, ограждение в ногах, за которым основное панорамное окно">
 
@@ -430,13 +463,13 @@
             <text class="glazing__label" x="340" y="770" text-anchor="middle">основное панорамное окно</text>
           </svg></div>
         </figure>
-
+        </div>
       </div>
 
       <p class="plan__note" data-floorplan-note aria-live="polite">
-        Наведите на помещение или выберите его с клавиатуры.
+        Наведите на объект или выберите его с клавиатуры.
       </p>
-    </section>
+    </dialog>
 
     <!-- ── 19:30 · Ужин ───────────────────────────────────────── -->
     <section class="section scene" id="dinner">
@@ -513,16 +546,33 @@
         <p>Сюда едут слушать лес, а не чужой плейлист. Поэтому музыку мы не ставим
         и вас просим о том же. Интернет при этом работает нормально: глушить связь,
         чтобы изобразить «цифровой детокс», — так себе гостеприимство.</p>
-
-        <div class="quiet__facts">
-          <p><span class="num">11 км</span> до ближайшего фонаря</p>
-          <p><span class="num">1 нажатие</span> кнопки вызова охраны у входа</p>
-        </div>
-
-        <p class="quiet__note">Участок свой, ворота на ключе и закрываются кнопкой.
-        Одиннадцать километров темноты не значит, что вы одни: тревожная кнопка
-        у входа вызывает вооружённую охрану.</p>
       </div>
+
+      <figure class="dark">
+        <svg viewBox="0 0 1200 150" class="dark__svg" role="img"
+             aria-label="Схема: от дома до ближайшего уличного фонаря одиннадцать километров темноты">
+
+          <text class="dark__span" x="600" y="66" text-anchor="middle">одиннадцать километров темноты</text>
+
+          <path class="dark__line" d="M104 96 H1096"/>
+          <path class="dark__ticks" d="M194.2 96 V103 M284.4 96 V103 M374.5 96 V103 M464.7 96 V103 M554.9 96 V103 M645.1 96 V103 M735.3 96 V103 M825.5 96 V103 M915.6 96 V103 M1005.8 96 V103"/>
+
+          <g class="dark__home">
+            <circle class="dark__glow" cx="64" cy="84" r="30"/>
+            <path d="M64 62 L86 96 H42 Z" fill="none" stroke="currentColor"
+                  stroke-width="3" stroke-linejoin="round"/>
+            <path d="M58 96 V84 H70 V96 Z" fill="currentColor"/>
+          </g>
+          <text class="dark__label" x="64" y="126" text-anchor="middle">дом</text>
+
+          <circle class="dark__lamp" cx="1130" cy="96" r="3.5"/>
+          <text class="dark__label" x="1130" y="126" text-anchor="middle">фонарь</text>
+        </svg>
+      </figure>
+
+      <p class="quiet__note">Участок свой, ворота на ключе и закрываются кнопкой.
+      Одиннадцать километров темноты не значит, что вы одни: тревожная кнопка
+      у входа вызывает вооружённую охрану.</p>
     </section>
 
     <!-- ── 06:10 · Утро ───────────────────────────────────────── -->

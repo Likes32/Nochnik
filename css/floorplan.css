@@ -185,9 +185,81 @@
 /* Лицевая сторона дивана: показывает, куда он смотрит. */
 .furn__face{stroke:var(--gold-dim); stroke-width:2.5; fill:none; opacity:.7}
 
+
+/* ── Планы поверх страницы ──────────────────────────────────────
+   Схемы занимали два экрана из девяти и большую часть времени были
+   не нужны. Теперь открываются по кнопке и получают весь экран —
+   и места не занимают, и читаются крупнее, чем занимали. */
+.planner{
+  width:min(1180px, 94vw);
+  max-width:none;
+  height:min(92svh, 900px);
+  padding:0;
+  border:1px solid var(--hair-lit);
+  border-radius:14px;
+  background:var(--n1);
+  color:var(--cream);
+  overflow:hidden;
+}
+.planner::backdrop{background:rgba(4,6,5,.86)}
+
+.planner__bar{
+  display:flex; align-items:center; gap:16px;
+  padding:14px clamp(1rem,2.5vw,1.75rem);
+  border-bottom:1px solid var(--hair);
+}
+.planner__tabs{display:flex; gap:6px; flex-wrap:wrap}
+.planner__tab{
+  display:grid; gap:2px; justify-items:start;
+  min-height:44px; padding:6px 16px;
+  background:none; border:1px solid transparent; border-radius:999px;
+  color:var(--olive); font-family:var(--body); font-size:var(--step-2);
+  cursor:pointer;
+  transition:color .2s var(--ease), border-color .2s var(--ease), background-color .2s var(--ease);
+}
+.planner__tab .mono{font-size:var(--step-1); color:var(--hair-lit)}
+.planner__tab:hover{color:var(--cream)}
+.planner__tab[aria-selected=true]{
+  color:var(--n0); background:var(--gold); border-color:var(--gold);
+}
+.planner__tab[aria-selected=true] .mono{color:rgba(7,10,8,.62)}
+
+.planner__close{
+  margin-left:auto; flex:none;
+  width:44px; height:44px;
+  display:grid; place-items:center;
+  background:none; border:1px solid var(--hair); border-radius:50%;
+  color:var(--olive); font-size:1rem; cursor:pointer;
+  transition:color .2s var(--ease), border-color .2s var(--ease);
+}
+.planner__close:hover{color:var(--gold); border-color:var(--gold)}
+
+.planner__stage{
+  padding:clamp(1rem,2.5vw,2rem);
+  overflow:auto;
+  height:calc(100% - 73px - 5.4em);
+}
+.planner__panel .plan__svg{max-width:none; width:100%}
+.planner__panel figure{margin:0}
+
+.planner .plan__note{
+  margin:0; border-left:0; border-top:1px solid var(--hair);
+  padding:14px clamp(1rem,2.5vw,1.75rem);
+  min-height:5.4em; max-width:none;
+}
+
+/* Диалог без showModal — запасной путь для старых браузеров. */
+.planner:not([open]){display:none}
+
 /* ── Мобильная раскладка. Держим блок последним в файле,
       чтобы ничто ниже его случайно не перебило. ── */
 @media (max-width:900px){
+  .planner{width:100vw; height:100svh; max-height:none; border:0; border-radius:0}
+  .planner__bar{padding:10px var(--pad-side)}
+  .planner__tab{padding:6px 12px; font-size:var(--step-1)}
+  .planner__stage{padding:var(--pad-side); height:calc(100% - 65px - 6.5em)}
+  .planner .plan__note{padding:12px var(--pad-side); min-height:6.5em}
+
   .plan__grid{grid-template-columns:minmax(0,1fr); gap:2.5rem}
   .plan__note{min-height:5em}
 
