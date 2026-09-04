@@ -29,13 +29,13 @@
 <link rel="icon" href="assets/logo-compact.svg" type="image/svg+xml">
 <link rel="preload" as="font" type="font/woff2" crossorigin href="fonts/onest-cyrillic.woff2">
 <link rel="preload" as="font" type="font/woff2" crossorigin href="fonts/cormorant-cyrillic.woff2">
-<link rel="stylesheet" href="fonts.css">
-<link rel="stylesheet" href="css/tokens.css">
-<link rel="stylesheet" href="css/base.css">
-<link rel="stylesheet" href="css/sections.css">
-<link rel="stylesheet" href="css/scenes.css">
-<link rel="stylesheet" href="css/floorplan.css">
-<link rel="stylesheet" href="css/calendar.css">
+<link rel="stylesheet" href="fonts.css?v=202609042019">
+<link rel="stylesheet" href="css/tokens.css?v=202609042019">
+<link rel="stylesheet" href="css/base.css?v=202609042019">
+<link rel="stylesheet" href="css/sections.css?v=202609042019">
+<link rel="stylesheet" href="css/scenes.css?v=202609042019">
+<link rel="stylesheet" href="css/floorplan.css?v=202609042019">
+<link rel="stylesheet" href="css/calendar.css?v=202609042019">
 <script>document.documentElement.classList.add("js")</script>
 </head>
 <body>
@@ -56,6 +56,12 @@
     </button>
 
     <nav class="nav__menu" id="menu" aria-label="Основная навигация">
+      <div class="sheet__grip" aria-hidden="true"></div>
+      <button class="sheet__close" type="button" data-menu-close>
+        <span class="sr-only">Закрыть меню</span>
+        <span aria-hidden="true">✕</span>
+      </button>
+
       <ul class="nav__list">
         <li><a href="#house">Дом<span class="mono">62 м² · 4 места</span></a></li>
         <li><a href="#section-view">Разрез<span class="mono">6,2 м по коньку</span></a></li>
@@ -69,6 +75,7 @@
         <a class="btn nav__cta" href="#booking">Выбрать даты</a>
       </div>
     </nav>
+    <div class="sheet__veil" data-menu-close hidden></div>
   </header>
 
 <div class="shell">
@@ -794,6 +801,6 @@
   <a class="btn stickybar__btn" href="#booking">Выбрать даты</a>
 </div>
 
-<script type="module" src="js/main.js"></script>
+<script type="module" src="js/main.js?v=202609042019"></script>
 </body>
 </html>

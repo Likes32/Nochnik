@@ -33,19 +33,56 @@ if (nav) {
   addEventListener("scroll", onScroll, { passive: true });
   onScroll();
 
+  /* Меню-шторка. Закрывается четырьмя способами: крестиком, тапом по
+     затемнению, свайпом вниз и Esc — на телефоне человек пробует тот,
+     который привык, и любой должен сработать. */
   const burger = nav.querySelector(".nav__burger");
-  burger?.addEventListener("click", () => {
-    const open = nav.classList.toggle("menu-open");
-    burger.setAttribute("aria-expanded", String(open));
+  const menu = nav.querySelector("#menu");
+  const veil = nav.querySelector(".sheet__veil");
+
+  const setMenu = (open) => {
+    nav.classList.toggle("menu-open", open);
+    burger?.setAttribute("aria-expanded", String(open));
+    if (veil) veil.hidden = !open;
     document.body.style.overflow = open ? "hidden" : "";
-  });
-  nav.querySelectorAll(".nav__menu a").forEach((a) =>
-    a.addEventListener("click", () => {
-      nav.classList.remove("menu-open");
-      burger?.setAttribute("aria-expanded", "false");
-      document.body.style.overflow = "";
-    })
+    if (!open) menu?.style.removeProperty("transform");
+  };
+
+  burger?.addEventListener("click", () => setMenu(!nav.classList.contains("menu-open")));
+  nav.querySelectorAll("[data-menu-close]").forEach((el) =>
+    el.addEventListener("click", () => setMenu(false))
   );
+  nav.querySelectorAll(".nav__list a, .nav__cta").forEach((a) =>
+    a.addEventListener("click", () => setMenu(false))
+  );
+  addEventListener("keydown", (e) => {
+    if (e.key === "Escape" && nav.classList.contains("menu-open")) setMenu(false);
+  });
+
+  /* Свайп вниз. Тянем только вниз и только пока список прокручен вверх —
+     иначе жест конфликтует с прокруткой самого списка. */
+  if (menu) {
+    const list = menu.querySelector(".nav__list");
+    let y0 = null;
+
+    menu.addEventListener("touchstart", (e) => {
+      y0 = (list && list.scrollTop > 0) ? null : e.touches[0].clientY;
+    }, { passive: true });
+
+    menu.addEventListener("touchmove", (e) => {
+      if (y0 === null) return;
+      const dy = e.touches[0].clientY - y0;
+      if (dy > 0) menu.style.transform = "translateY(" + dy + "px)";
+    }, { passive: true });
+
+    menu.addEventListener("touchend", (e) => {
+      if (y0 === null) return;
+      const dy = e.changedTouches[0].clientY - y0;
+      menu.style.removeProperty("transform");
+      if (dy > 90) setMenu(false);
+      y0 = null;
+    });
+  }
 }
 
 /* Липкая панель с ценой. Появляется, когда первый экран ушёл, и
