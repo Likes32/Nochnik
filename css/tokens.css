@@ -30,7 +30,7 @@
   --step-1:0.75rem;                         /* моно 12px — на мобиле НЕ уменьшается */
 
   /* Ритм */
-  --pad-section:clamp(5.5rem, 10vw, 12.5rem); /* 88 → 200px */
+  --pad-section:clamp(4rem, 6vw, 7.5rem);     /* 64 → 120px */
   --pad-side:clamp(1.25rem, 5vw, 5rem);       /* 20 → 80px  */
   --rail:clamp(0px, 14vw, 160px);             /* поле под маргиналии меток времени */
   --measure:64ch;

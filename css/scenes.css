@@ -28,22 +28,33 @@
   position:absolute; inset:0; z-index:-1;
   border:0; border-radius:0;
 }
-/* Затемнение. Много промежуточных стопов нарочно: у двух-трёх точек
-   линейный градиент даёт видимую «полку» — горизонтальную границу там,
-   где кадр обрывается. Здесь он гаснет в фон страницы без ступени. */
+/* Кадр: дом справа, пустое небо слева. Держим дом в кадре при любой
+   высоте окна — иначе на высоком экране object-fit обрезает до неба. */
+.hero__media img{object-position:72% 58%}
+
+/* Затемнение работает там, где лежит текст, а не по всему кадру.
+   Горизонтальный слой гасит левую треть под заголовок, вертикальный
+   только подпирает низ. Ни один из них не доходит до непрозрачности —
+   поэтому фотография видна везде, а стыка не возникает. */
 .hero__media::before{
   content:"";
   position:absolute; inset:0;
-  background:linear-gradient(to top,
-    rgb(13,19,15)      0%,
-    rgba(13,19,15,.98) 8%,
-    rgba(13,19,15,.90) 16%,
-    rgba(13,19,15,.76) 26%,
-    rgba(13,19,15,.60) 38%,
-    rgba(13,19,15,.44) 52%,
-    rgba(13,19,15,.32) 68%,
-    rgba(13,19,15,.26) 85%,
-    rgba(13,19,15,.30) 100%);
+  background:
+    linear-gradient(to right,
+      rgba(13,19,15,.90) 0%,
+      rgba(13,19,15,.82) 22%,
+      rgba(13,19,15,.58) 42%,
+      rgba(13,19,15,.28) 62%,
+      rgba(13,19,15,.06) 82%,
+      rgba(13,19,15,0)   100%),
+    linear-gradient(to top,
+      rgba(13,19,15,.94) 0%,
+      rgba(13,19,15,.78) 7%,
+      rgba(13,19,15,.52) 15%,
+      rgba(13,19,15,.28) 26%,
+      rgba(13,19,15,.12) 40%,
+      rgba(13,19,15,.04) 58%,
+      rgba(13,19,15,0)   75%);
 }
 .hero__body{max-width:44ch}
 .hero h1{margin:0 0 .5em}
@@ -101,9 +112,10 @@
 .house__specs dd{margin:0 0 0 auto; color:var(--cream); text-align:right}
 
 /* ── Сцены ночи ── */
-/* Вертикальный кадр рядом с текстом читается по-редакторски —
-   и совпадает с тем, как сняты сами фотографии. */
-.scene__media{aspect-ratio:3/4}
+/* Высота кадра задана прямо, а не пропорцией: при коротком тексте
+   вертикаль во весь рост давала картинку впятеро выше текстового блока.
+   Фиксированная высота держит ритм и укорачивает страницу. */
+.scene__media{height:clamp(300px,38vh,460px)}
 .scene__body{padding-top:clamp(1.5rem,3vw,2.5rem); max-width:52ch}
 .scene__body h2{margin-bottom:.45em}
 .scene__body p{color:#CFCBBE}
@@ -114,6 +126,9 @@
   .scene{display:grid; grid-template-columns:minmax(0,1.15fr) minmax(0,1fr)}
   .scene__media{grid-column:1; grid-row:1}
   .scene__body{grid-column:2; grid-row:1; padding:0 0 0 clamp(1.5rem,3vw,3rem)}
+  /* Колонки зеркалим вместе с содержимым: иначе у перевёрнутых сцен
+     кадр попадает в узкую колонку и ритм ломается через одну. */
+  .scene--flip{grid-template-columns:minmax(0,1fr) minmax(0,1.15fr)}
   .scene--flip .scene__media{grid-column:2}
   .scene--flip .scene__body{grid-column:1; padding:0 clamp(1.5rem,3vw,3rem) 0 0}
 }
@@ -171,6 +186,19 @@
   color:var(--hair-lit); font-size:var(--step-2);
 }
 
+
+/* Факты сцены: короткая моно-строка вместо ещё одного абзаца. */
+.scene__facts{
+  list-style:none; margin:clamp(1.25rem,2.5vw,1.75rem) 0 0; padding:0;
+  display:flex; flex-wrap:wrap; gap:8px 10px;
+}
+.scene__facts li{
+  padding:6px 13px;
+  border:1px solid var(--hair); border-radius:999px;
+  font-family:var(--mono); font-size:var(--step-1);
+  color:var(--olive); letter-spacing:.06em;
+}
+
 /* ── Мобильная раскладка. Держим блок последним в файле. ── */
 @media (max-width:900px){
   .hero__scroll{display:none}
@@ -186,7 +214,7 @@
   }
   .house__media{aspect-ratio:4/3}
   /* На узком экране вертикаль во весь рост слишком высокая — поджимаем. */
-  .scene__media{aspect-ratio:4/5}
+  .scene__media{height:clamp(260px,42vh,380px)}
   .scene__body{padding:1.75rem 0 0}
 
   .quiet__facts{flex-direction:column; gap:1.25rem}
