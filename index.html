@@ -87,28 +87,87 @@
 
     <!-- ── 18:20 · Дом ────────────────────────────────────────── -->
     <section class="section house" id="house">
-
-      <div class="section__head">
-        <h2>Шестьдесят два метра, из которых половина — воздух</h2>
-        <p>Гостиная в два света: антресоль не перекрывает торец, поэтому окно
-        работает на всю высоту дома.</p>
-      </div>
-
       <div class="house__grid">
-        <div class="house__media">
-          <img src="photos/house.jpg" loading="lazy" decoding="async" alt="Чёрный A-frame дом на сваях в сосновом бору, терраса с креслами">
+
+        <div class="house__body">
+          <p class="house__facts mono">
+            <span>62 м²</span><i></i><span>два уровня</span><i></i><span>4 места</span>
+          </p>
+
+          <h2>Шестьдесят два метра, из которых половина — воздух</h2>
+
+          <p class="house__lead">Антресоль не перекрывает торец, поэтому окно работает
+          на всю высоту дома. Внизу общая жизнь, наверху сон — и лёжа в кровати
+          видно гостиную и то же самое окно.</p>
+
+          <ul class="house__amenities">
+            <li>
+              <svg class="am__ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 3 21 21H3Z M12 9l5 12H7Z"/></svg>
+              <span class="am__name">Панорамный торец</span>
+              <span class="am__note">пять метров стекла</span>
+            </li>
+            <li>
+              <svg class="am__ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M3 21h18 M5 21v-5h6v5 M13 21v-9h6v9"/></svg>
+              <span class="am__name">Антресоль</span>
+              <span class="am__note">кровать 180 × 200</span>
+            </li>
+            <li>
+              <svg class="am__ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 3c3 4 5 6 5 9a5 5 0 0 1-10 0c0-2 1-3 2-4 .5 1.5 1.5 2 2 2 .5-2-1-5 1-7Z"/></svg>
+              <span class="am__name">Камин</span>
+              <span class="am__note">дрова включены</span>
+            </li>
+            <li>
+              <svg class="am__ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 21h16 M7 17V9 M12 17V7 M17 17v-6 M6 4c0 1.2 1 1.2 1 2.4 M11 3c0 1.2 1 1.2 1 2.4 M16 4c0 1.2 1 1.2 1 2.4"/></svg>
+              <span class="am__name">Баня</span>
+              <span class="am__note">3 500 ₽, по запросу</span>
+            </li>
+            <li>
+              <svg class="am__ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M3 12h18v3a5 5 0 0 1-5 5H8a5 5 0 0 1-5-5v-3Z M7 12V6a2 2 0 0 1 4 0"/></svg>
+              <span class="am__name">Купель</span>
+              <span class="am__note">подогрев и фильтрация</span>
+            </li>
+            <li>
+              <svg class="am__ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M3 6h18v7H3Z M6 17c0 1.6 1 2.2 2 2.2 M12 17c0 1.6 1 2.2 2 2.2 M18 17c0-1.6-1-2.2-2-2.2"/></svg>
+              <span class="am__name">Кондиционер</span>
+              <span class="am__note">и приточная вентиляция</span>
+            </li>
+            <li>
+              <svg class="am__ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M3 9a15 15 0 0 1 18 0 M6.5 12.5a10 10 0 0 1 11 0 M10 16a5 5 0 0 1 4 0 M12 19.6h.01"/></svg>
+              <span class="am__name">Wi-Fi</span>
+              <span class="am__note">по всему дому</span>
+            </li>
+          </ul>
+
+          <a class="btn btn--ghost" href="#plan">
+            Смотреть планы <span aria-hidden="true">→</span>
+          </a>
         </div>
 
-        <dl class="house__specs">
-          <div><dt>Площадь</dt><dd class="num">62 м²</dd></div>
-          <div><dt>Спальных мест</dt><dd class="num">4</dd></div>
-          <div><dt>Наверху</dt><dd>кровать 180 × 200</dd></div>
-          <div><dt>Внизу</dt><dd>раскладной диван</dd></div>
-          <div><dt>Панорамный торец</dt><dd class="num">5 м</dd></div>
-          <div><dt>Отопление</dt><dd>камин и кондиционер</dd></div>
-          <div><dt>Воздух</dt><dd>приточная вентиляция</dd></div>
-          <div><dt>Интернет</dt><dd>Wi-Fi по всему дому</dd></div>
-        </dl>
+        <div class="house__mosaic" role="group" aria-label="Дом, терраса, баня, купель и вид из спальни">
+          <figure class="tile tile--up tile--1">
+            <img src="photos/morning.jpg" loading="lazy" decoding="async" alt="Вид из кровати через треугольное окно на ельник">
+          </figure>
+          <figure class="tile tile--down tile--2">
+            <img src="photos/terrace.jpg" loading="lazy" decoding="async" alt="Терраса с креслами под скатом крыши">
+          </figure>
+          <figure class="tile tile--up tile--3">
+            <img src="photos/sauna.jpg" loading="lazy" decoding="async" alt="Парная с деревянными полками и подсветкой">
+          </figure>
+          <figure class="tile tile--down tile--4">
+            <img src="photos/tub.jpg" loading="lazy" decoding="async" alt="Купель с паром на фоне закатного неба">
+          </figure>
+          <span class="tile tile--up tile--mark tile--5" aria-hidden="true">
+            <svg viewBox="0 0 96 96" focusable="false">
+              <path d="M48 26 L74 74 H22 Z" fill="none" stroke="currentColor"
+                    stroke-width="5" stroke-linejoin="round"/>
+              <path d="M42 74 V58 H54 V74 Z" fill="currentColor"/>
+            </svg>
+          </span>
+          <figure class="tile tile--down tile--6">
+            <img src="photos/house.jpg" loading="lazy" decoding="async" alt="Чёрный A-frame дом на сваях в сосновом бору">
+          </figure>
+        </div>
+
       </div>
     </section>
 

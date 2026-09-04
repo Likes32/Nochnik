@@ -2,14 +2,12 @@
 
 /* ── Кадры ── */
 .hero__media img,
-.house__media img,
 .scene__media img{
   width:100%; height:100%;
   object-fit:cover;
   /* Грейд впечён в JPEG: CSS-фильтр на полноэкранном фото
      заставляет iOS гонять шейдер на каждой прокрутке. */
 }
-.house__media,
 .scene__media{
   border:1px solid var(--hair); border-radius:10px; overflow:hidden;
   background:var(--n2);
@@ -27,6 +25,16 @@
 .hero__media{
   position:absolute; inset:0; z-index:-1;
   border:0; border-radius:0;
+  /* Обрезка обязательна: параллакс сдвигает кадр вниз, и без неё
+     фотография вылезает за первый экран и оказывается фоном под
+     текстом следующей секции. При нулевой прокрутке это незаметно. */
+  overflow:hidden;
+}
+
+/* Запас высоты сверху — чтобы сдвигу было куда идти без прорехи. */
+.hero__media img{
+  position:absolute; left:0; top:-10%;
+  width:100%; height:110%;
 }
 /* Десктопный кадр: дом справа, пустое небо слева. Держим дом в кадре
    при любой высоте окна — иначе object-fit обрезает до неба.
@@ -35,37 +43,26 @@
   .hero__media img{object-position:72% 58%}
 }
 
-/* Затемнение работает там, где лежит текст, а не по всему кадру.
-   Горизонтальный слой гасит левую треть под заголовок, вертикальный
-   только подпирает низ. Ни один из них не доходит до непрозрачности —
-   поэтому фотография видна везде, а стыка не возникает. */
+/* Затемнение на весь кадр: фотография приглушена целиком, снизу
+   плотнее — там лежат чипсы, цена и кнопка. Нигде не доходит до глухой
+   заливки, иначе на стыке с фоном страницы появляется видимая полка. */
 .hero__media::before{
-  content:"";
-  position:absolute; inset:0;
-  background:
-    linear-gradient(to right,
-      rgba(13,19,15,.90) 0%,
-      rgba(13,19,15,.82) 22%,
-      rgba(13,19,15,.58) 42%,
-      rgba(13,19,15,.28) 62%,
-      rgba(13,19,15,.06) 82%,
-      rgba(13,19,15,0)   100%),
-    linear-gradient(to top,
-      rgba(13,19,15,.94) 0%,
-      rgba(13,19,15,.78) 7%,
-      rgba(13,19,15,.52) 15%,
-      rgba(13,19,15,.28) 26%,
-      rgba(13,19,15,.12) 40%,
-      rgba(13,19,15,.04) 58%,
-      rgba(13,19,15,0)   75%);
+  content:""; position:absolute; inset:0; z-index:1;
+  background:linear-gradient(to top,
+    rgba(13,19,15,.96) 0%,
+    rgba(13,19,15,.88) 10%,
+    rgba(13,19,15,.76) 24%,
+    rgba(13,19,15,.66) 42%,
+    rgba(13,19,15,.60) 62%,
+    rgba(13,19,15,.58) 80%,
+    rgba(13,19,15,.62) 100%);
 }
-/* Зажигание первого экрана. Дом на фотографии уже светится, поэтому
-   рисовать поверх луч было бы враньём: вместо этого при загрузке
-   снимается плотная вуаль — читается как «свет включили». */
+
+/* Зажигание первого экрана: при загрузке снимается плотная вуаль —
+   читается как «свет включили». Слой поверх затемнения. */
 .hero__media::after{
-  content:""; position:absolute; inset:0;
-  background:var(--n0);
-  opacity:1;
+  content:""; position:absolute; inset:0; z-index:2;
+  background:var(--n0); opacity:1;
   transition:opacity 1.5s var(--ease);
 }
 .hero.is-lit .hero__media::after{opacity:0}
@@ -128,22 +125,106 @@ html:not(.js) .hero__body > *,
 }
 .hero__scroll:hover{color:var(--gold)}
 
-/* ── Дом ── */
-.house__grid{
-  display:grid; grid-template-columns:minmax(0,1.3fr) minmax(0,1fr);
-  gap:clamp(1.5rem,4vw,4rem); align-items:start;
-  margin-top:clamp(2rem,5vw,3.5rem);
-}
-.house__media{aspect-ratio:4/3}
+/* ── Дом ──────────────────────────────────────────────────────
+   Замостка из треугольников. Приём не декоративный: A-frame и есть
+   треугольник, поэтому каждый кадр попадает в форму того дома,
+   который на нём снят. Одна плитка из шести — не фотография, а знак:
+   логотип становится одним из домов в узоре. */
 
-.house__specs{margin:0; display:grid; gap:0}
-.house__specs > div{
-  display:flex; align-items:baseline; gap:16px;
-  padding:14px 0; border-bottom:1px solid var(--hair);
+.house__grid{
+  display:grid;
+  grid-template-columns:minmax(0,1.05fr) minmax(0,1.15fr);
+  gap:clamp(2rem,5vw,5rem);
+  align-items:center;
 }
-.house__specs > div:first-child{border-top:1px solid var(--hair)}
-.house__specs dt{color:var(--olive); font-size:var(--step-2)}
-.house__specs dd{margin:0 0 0 auto; color:var(--cream); text-align:right}
+
+/* Надзаголовок — не слоган, а факты: они и так нужны читателю. */
+.house__facts{
+  display:flex; align-items:center; gap:12px; flex-wrap:wrap;
+  margin:0 0 clamp(1rem,2vw,1.5rem);
+  color:var(--gold-dim);
+}
+.house__facts i{width:18px; height:1px; background:var(--hair-lit); flex:none}
+
+.house h2{margin-bottom:.5em}
+.house__lead{color:#CFCBBE; max-width:46ch}
+
+/* ── Удобства ── */
+.house__amenities{
+  list-style:none; margin:clamp(1.75rem,3.5vw,2.5rem) 0 0; padding:0;
+  display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+  gap:2px 0;
+}
+.house__amenities li{
+  display:grid;
+  grid-template-columns:22px 1fr;
+  gap:2px 12px;
+  align-items:center;
+  padding:11px 0;
+  border-top:1px solid var(--hair);
+}
+.am__ico{
+  width:20px; height:20px; grid-row:span 2;
+  fill:none; stroke:var(--gold-dim); stroke-width:1.4;
+  stroke-linecap:round; stroke-linejoin:round;
+}
+.am__name{color:var(--cream); font-size:var(--step-2); font-weight:500}
+.am__note{color:var(--olive); font-family:var(--mono); font-size:var(--step-1); letter-spacing:.04em}
+
+.btn--ghost{
+  margin-top:clamp(1.75rem,3.5vw,2.5rem);
+  background:none; border:1px solid var(--hair-lit); color:var(--cream);
+  transition:border-color .25s var(--ease), color .25s var(--ease);
+}
+.btn--ghost span{margin-left:10px; color:var(--gold); transition:transform .25s var(--ease)}
+.btn--ghost:hover{border-color:var(--gold); color:var(--cream)}
+.btn--ghost:hover span{transform:translateX(4px); display:inline-block}
+
+/* ── Замостка ── */
+.house__mosaic{
+  position:relative;
+  aspect-ratio:2 / 1.732;   /* два ряда равносторонних треугольников */
+}
+.tile{
+  position:absolute; margin:0;
+  width:50%; height:50%;
+  overflow:hidden;
+  background:var(--n2);
+}
+.tile img{width:100%; height:100%; object-fit:cover; display:block}
+
+/* Кадрирование под каждую плитку. Снимки розданы по форме: треугольник
+   «вниз» широк сверху — туда кадры со светлым верхом, «вверх» широк
+   снизу — туда со светлым низом. Иначе ночные кадры на мелком размере
+   превращаются в чёрные пятна. */
+.tile--1 img{object-position:50% 74%}  /* подушки и низ окна */
+.tile--2 img{object-position:60% 42%}  /* лампы на террасе */
+.tile--3 img{object-position:44% 54%}  /* подсветка полков */
+.tile--4 img{object-position:50% 34%}  /* закатное небо над купелью */
+.tile--6 img{object-position:50% 30%}  /* кроны сосен над домом */
+
+/* Контур у каждой плитки. Без него замостка из тёмных ночных кадров
+   читается одним мутным пятном: сама плитка залита цветом линии,
+   а кадр внутри срезан чуть меньше — остаётся волосяная обводка. */
+.tile{background:var(--hair-lit)}
+.tile--up{clip-path:polygon(50% 0%, 100% 100%, 0% 100%)}
+.tile--down{clip-path:polygon(0% 0%, 100% 0%, 50% 100%)}
+.tile--up img{clip-path:polygon(50% 2.2%, 98.9% 98.6%, 1.1% 98.6%)}
+.tile--down img{clip-path:polygon(1.1% 1.4%, 98.9% 1.4%, 50% 97.8%)}
+
+.tile--1{left:0;   top:0}
+.tile--2{left:25%; top:0}
+.tile--3{left:50%; top:0}
+.tile--4{left:0;   top:50%}
+.tile--5{left:25%; top:50%}
+.tile--6{left:50%; top:50%}
+
+/* Знак вместо шестого кадра. */
+.tile--mark{
+  display:grid; place-items:center;
+  background:var(--gold); color:var(--n0);
+}
+.tile--mark svg{width:46%; height:46%; margin-top:14%}
 
 /* ── Сцены ночи ── */
 /* Высота кадра задана прямо, а не пропорцией: при коротком тексте
@@ -162,6 +243,9 @@ html:not(.js) .hero__body > *,
 
 /* Раскладка со сменой сторон: медиа и текст рядом, чередуя порядок. */
 @media (min-width:901px){
+  /* Узкая мера только там, где рядом коллаж и колонка сжата. */
+  .house h2{max-width:17ch}
+
   .scene{display:grid; grid-template-columns:minmax(0,1.15fr) minmax(0,1fr)}
   .scene__media{grid-column:1; grid-row:1}
   .scene__body{grid-column:2; grid-row:1; padding:0 0 0 clamp(1.5rem,3vw,3rem)}
@@ -265,15 +349,16 @@ html:not(.js) .hero__body > *,
   .hero__scroll{display:none}
   .hero__body{max-width:none}
 
-  .house__grid{grid-template-columns:minmax(0,1fr)}
+  .house__grid{grid-template-columns:minmax(0,1fr); gap:2.5rem}
+  /* Замостка первой: она объясняет дом быстрее, чем абзац. */
+  .house__mosaic{order:-1; margin-inline:calc(var(--pad-side) * -1)}
+  .house__amenities{grid-template-columns:minmax(0,1fr)}
 
   /* Фото в край: так дороже, чем кадр в рамке из отступов. */
-  .house__media,
   .scene__media{
     margin-inline:calc(var(--pad-side) * -1);
     border-radius:0; border-left:0; border-right:0;
   }
-  .house__media{aspect-ratio:4/3}
   /* На узком экране вертикаль во весь рост слишком высокая — поджимаем. */
   .scene__media{height:clamp(260px,42vh,380px)}
   .scene__body{padding:1.75rem 0 0}

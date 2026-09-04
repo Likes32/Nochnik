@@ -63,7 +63,7 @@ export function initNight({ parallax = false } = {}) {
       // Только первый экран: остальные кадры при прокрутке не двигаем,
       // иначе каждый из них пересобирается покадрово.
       const local = Math.min(1, y / geo.heroH);
-      heroImg.style.transform = `translate3d(0, ${(local * 7).toFixed(2)}%, 0)`;
+      heroImg.style.transform = `translate3d(0, ${(local * 6).toFixed(2)}%, 0)`;
     }
   }
 
