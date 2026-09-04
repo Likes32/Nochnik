@@ -20,10 +20,12 @@
   display:grid;
   align-items:end;
   padding:0 var(--pad-side) clamp(3rem,7vh,6rem);
-  isolation:isolate;
 }
+/* Без отрицательного z-index. В вебвью iOS слой под содержимым при
+   перерисовке во время прокрутки теряет своё место — первый экран
+   оказывается пустым. Обычный порядок наложения такого не даёт. */
 .hero__media{
-  position:absolute; inset:0; z-index:-1;
+  position:absolute; inset:0; z-index:0;
   border:0; border-radius:0;
   /* Обрезка обязательна: параллакс сдвигает кадр вниз, и без неё
      фотография вылезает за первый экран и оказывается фоном под
@@ -87,7 +89,7 @@ html:not(.js) .hero__body > *,
   .hero__body > *{opacity:1; transform:none}
 }
 
-.hero__body{max-width:44ch}
+.hero__body{position:relative; z-index:1; max-width:44ch}
 .hero h1{margin:0 0 .5em}
 .hero__lead{color:#D6D2C4; font-size:clamp(1rem,1.4vw,1.1875rem)}
 
@@ -127,7 +129,7 @@ html:not(.js) .hero__body > *,
 .btn:active{transform:translateY(0)}
 
 .hero__scroll{
-  position:absolute; right:var(--pad-side); bottom:clamp(3rem,7vh,6rem);
+  position:absolute; z-index:1; right:var(--pad-side); bottom:clamp(3rem,7vh,6rem);
   display:flex; align-items:center; gap:10px;
   color:var(--olive);
 }

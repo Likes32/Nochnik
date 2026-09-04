@@ -18,6 +18,7 @@ const TYPES = {
   ".png": "image/png",
   ".webp": "image/webp",
   ".avif": "image/avif",
+  ".mp4": "video/mp4",
   ".json": "application/json; charset=utf-8",
 };
 
