@@ -51,7 +51,11 @@
   padding:9px 20px;
   opacity:1 !important;
 }
-.nav__cta:hover{border-color:var(--gold); background:rgba(240,181,74,.08)}
+.nav__cta:hover{
+  border-color:var(--gold);
+  background:rgba(240,181,74,.10);
+  box-shadow:0 6px 22px -12px rgba(240,181,74,.55);
+}
 
 .nav__burger{display:none}
 

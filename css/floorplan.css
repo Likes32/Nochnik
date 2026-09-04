@@ -251,6 +251,46 @@
 /* Диалог без showModal — запасной путь для старых браузеров. */
 .planner:not([open]){display:none}
 
+
+/* ── Разрез дома ────────────────────────────────────────────────
+   Чертёж, а не иллюстрация: все размеры на нём честные, масштаб
+   подписан. Это увеличенный логотип — треугольник со светящимся
+   торцом, — только с выносками и размерными линиями. */
+.xs{margin:0}
+.xs figcaption{
+  display:flex; align-items:baseline; gap:12px;
+  margin-bottom:clamp(1rem,2.5vw,2rem);
+  color:var(--olive);
+}
+.xs figcaption span{color:var(--hair-lit); letter-spacing:.08em}
+.xs__svg{width:100%; height:auto; overflow:visible}
+
+.xs__ground{stroke:var(--hair-lit); stroke-width:1; fill:none}
+.xs__frame{fill:none; stroke:var(--cream); stroke-width:2.5; stroke-linejoin:round}
+.xs__slab{stroke:var(--cream); stroke-width:2.5; fill:none}
+.xs__deck{stroke:var(--olive); stroke-width:2.5; fill:none}
+.xs__posts{stroke:var(--olive); stroke-width:1.2; fill:none}
+
+/* Свет изнутри — единственное цветное пятно на чертеже. */
+.xs__glow{fill:var(--gold); opacity:.10}
+.xs__glass path{stroke:var(--gold-dim); stroke-width:1; fill:none; opacity:.75}
+
+.xs__dim path{stroke:var(--olive); stroke-width:1; fill:none; opacity:.7}
+.xs__dimtext{
+  fill:var(--olive);
+  font-family:var(--mono); font-size:14px; letter-spacing:.06em;
+}
+
+.xs__notes path{stroke:var(--hair-lit); stroke-width:1; fill:none}
+.xs__notes text{
+  fill:var(--cream);
+  font-family:var(--body); font-size:15px; font-weight:500;
+}
+.xs__notes .xs__sub{
+  fill:var(--olive);
+  font-family:var(--mono); font-size:13px; font-weight:400; letter-spacing:.04em;
+}
+
 /* ── Мобильная раскладка. Держим блок последним в файле,
       чтобы ничто ниже его случайно не перебило. ── */
 @media (max-width:900px){
@@ -259,6 +299,13 @@
   .planner__tab{padding:6px 12px; font-size:var(--step-1)}
   .planner__stage{padding:var(--pad-side); height:calc(100% - 65px - 6.5em)}
   .planner .plan__note{padding:12px var(--pad-side); min-height:6.5em}
+
+  /* Разрез уезжает вбок вместе со схемами: сжатый до 335 пикселей
+     он превращается в нечитаемую паутину. */
+  .xs__svg{min-width:760px}
+  .xs figure, .xs{overflow-x:auto; margin-inline:calc(var(--pad-side) * -1); padding-inline:var(--pad-side)}
+  .xs__notes text{font-size:22px}
+  .xs__notes .xs__sub, .xs__dimtext{font-size:19px}
 
   .plan__grid{grid-template-columns:minmax(0,1fr); gap:2.5rem}
   .plan__note{min-height:5em}

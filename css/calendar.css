@@ -118,9 +118,13 @@
   background:var(--gold); border:0; border-radius:8px;
   color:var(--n0); font-family:var(--body); font-weight:600; font-size:var(--step-3);
   cursor:pointer;
-  transition:background-color .25s var(--ease);
+  transition:box-shadow .3s var(--ease), transform .3s var(--ease);
 }
-.bk__submit:hover{background:var(--cream)}
+.bk__submit:hover{
+  transform:translateY(-1px);
+  box-shadow:0 10px 34px -10px rgba(240,181,74,.6);
+}
+.bk__submit:active{transform:translateY(0)}
 
 .bk__done{
   margin-top:24px; padding:18px;

@@ -109,14 +109,22 @@ html:not(.js) .hero__body > *,
 .hero__price{margin:0; color:var(--cream); font-size:1.125rem}
 .hero__price span{color:var(--olive); font-size:var(--step-2)}
 
+/* Кнопки не перекрашиваются при наведении, а разгораются: у бренда
+   вся история про свет, инверсия в белое ей противоречит. */
 .btn{
-  display:inline-grid; place-items:center;
+  position:relative; isolation:isolate; overflow:hidden;
+  display:inline-grid; grid-auto-flow:column; align-items:center; justify-content:center;
+  gap:10px;
   min-height:52px; padding:0 30px;
   background:var(--gold); border-radius:8px;
   color:var(--n0); font-weight:600;
-  transition:background-color .25s var(--ease);
+  transition:box-shadow .3s var(--ease), transform .3s var(--ease);
 }
-.btn:hover{background:var(--cream); color:var(--n0)}
+.btn:hover{
+  transform:translateY(-1px);
+  box-shadow:0 10px 34px -10px rgba(240,181,74,.6), 0 0 0 1px var(--gold);
+}
+.btn:active{transform:translateY(0)}
 
 .hero__scroll{
   position:absolute; right:var(--pad-side); bottom:clamp(3rem,7vh,6rem);
@@ -171,14 +179,30 @@ html:not(.js) .hero__body > *,
 .am__name{color:var(--cream); font-size:var(--step-2); font-weight:500}
 .am__note{color:var(--olive); font-family:var(--mono); font-size:var(--step-1); letter-spacing:.04em}
 
+/* Призрачная кнопка: свет вливается слева, как из открытой двери. */
 .btn--ghost{
   margin-top:clamp(1.75rem,3.5vw,2.5rem);
-  background:none; border:1px solid var(--hair-lit); color:var(--cream);
-  transition:border-color .25s var(--ease), color .25s var(--ease);
+  background:none;
+  border:1px solid var(--hair-lit);
+  color:var(--cream);
+  transition:border-color .3s var(--ease), box-shadow .3s var(--ease),
+             transform .3s var(--ease);
 }
-.btn--ghost span{margin-left:10px; color:var(--gold); transition:transform .25s var(--ease)}
-.btn--ghost:hover{border-color:var(--gold); color:var(--cream)}
-.btn--ghost:hover span{transform:translateX(4px); display:inline-block}
+.btn--ghost::before{
+  content:""; position:absolute; inset:0; z-index:-1;
+  background:radial-gradient(130% 150% at 0% 50%,
+    rgba(240,181,74,.26) 0%, rgba(240,181,74,.08) 42%, transparent 72%);
+  opacity:0;
+  transition:opacity .35s var(--ease);
+}
+.btn--ghost:hover{
+  border-color:var(--gold); color:var(--cream);
+  box-shadow:0 8px 28px -14px rgba(240,181,74,.5);
+}
+.btn--ghost:hover::before{opacity:1}
+
+.btn span{display:inline-block; color:var(--gold); transition:transform .3s var(--ease)}
+.btn--ghost:hover span{transform:translateX(5px)}
 
 /* ── Замостка ── */
 .house__mosaic{
