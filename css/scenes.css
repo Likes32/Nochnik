@@ -59,6 +59,37 @@
       rgba(13,19,15,.04) 58%,
       rgba(13,19,15,0)   75%);
 }
+/* Зажигание первого экрана. Дом на фотографии уже светится, поэтому
+   рисовать поверх луч было бы враньём: вместо этого при загрузке
+   снимается плотная вуаль — читается как «свет включили». */
+.hero__media::after{
+  content:""; position:absolute; inset:0;
+  background:var(--n0);
+  opacity:1;
+  transition:opacity 1.5s var(--ease);
+}
+.hero.is-lit .hero__media::after{opacity:0}
+
+.hero__body > *{
+  opacity:0; transform:translateY(14px);
+  transition:opacity .9s var(--ease), transform .9s var(--ease);
+}
+.hero.is-lit .hero__body > *{opacity:1; transform:none}
+.hero.is-lit .hero__body > *:nth-child(2){transition-delay:.14s}
+.hero.is-lit .hero__body > *:nth-child(3){transition-delay:.26s}
+.hero.is-lit .hero__body > *:nth-child(4){transition-delay:.36s}
+
+/* Без JS и в облегчённом режиме первый экран просто на месте. */
+html:not(.js) .hero__media::after,
+.lite .hero__media::after{opacity:0}
+html:not(.js) .hero__body > *,
+.lite .hero__body > *{opacity:1; transform:none}
+
+@media (prefers-reduced-motion:reduce){
+  .hero__media::after{opacity:0}
+  .hero__body > *{opacity:1; transform:none}
+}
+
 .hero__body{max-width:44ch}
 .hero h1{margin:0 0 .5em}
 .hero__lead{color:#D6D2C4; font-size:clamp(1rem,1.4vw,1.1875rem)}
