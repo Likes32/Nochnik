@@ -44,3 +44,31 @@ if (nav) {
     })
   );
 }
+
+/* Липкая панель с ценой. Появляется, когда первый экран ушёл, и
+   прячется у формы бронирования — там своя кнопка, дублировать незачем.
+   Оба состояния через IntersectionObserver, а не через обработчик
+   прокрутки: наблюдатель не будит поток на каждый кадр. */
+const sticky = document.querySelector("[data-sticky]");
+if (sticky && isTouch) {
+  sticky.hidden = false;
+  const hero = document.querySelector("#hero");
+  const booking = document.querySelector("#booking");
+  let heroGone = false;
+  let atForm = false;
+
+  const apply = () => sticky.classList.toggle("is-in", heroGone && !atForm);
+
+  if (hero) {
+    new IntersectionObserver(
+      ([e]) => { heroGone = !e.isIntersecting; apply(); },
+      { rootMargin: "-40% 0px 0px 0px" }
+    ).observe(hero);
+  }
+  if (booking) {
+    new IntersectionObserver(
+      ([e]) => { atForm = e.isIntersecting; apply(); },
+      { rootMargin: "0px 0px -35% 0px" }
+    ).observe(booking);
+  }
+}

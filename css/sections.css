@@ -32,6 +32,7 @@
 
 .nav__brand{
   display:flex; align-items:center; gap:11px;
+  min-height:44px; /* минимум под палец */
   color:inherit; font-family:var(--display); font-size:1.5rem; letter-spacing:.02em;
 }
 .nav__brand svg{width:28px; height:28px; flex:none}

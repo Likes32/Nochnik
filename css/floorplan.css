@@ -77,6 +77,10 @@
 .panic:focus{outline:none}
 .panic:focus-visible .panic__body{stroke:var(--gold); stroke-width:3}
 
+/* Невидимая область нажатия для тонких элементов: линия с подписью
+   сама по себе высотой 22 пикселя, пальцем в неё не попасть. */
+.hit{fill:transparent; pointer-events:all}
+
 /* ── Помещения ── */
 .room{cursor:pointer}
 .room__fill{
@@ -186,11 +190,34 @@
 @media (max-width:900px){
   .plan__grid{grid-template-columns:minmax(0,1fr); gap:2.5rem}
   .plan__note{min-height:5em}
-  /* SVG масштабируется вместе с шириной, подписи мельчают — поднимаем кегль. */
-  .room__label{font-size:20px}
+
+  /* Схема на узком экране: подписи и кнопки заданы в единицах viewBox
+     и сжимаются вместе с ним — при ширине 335px кегль 20 превращается
+     в 10, а кнопка в 13 пикселей. Поэтому держим схему крупной
+     и даём прокрутить её вбок. */
+  .plan__scroll{
+    overflow-x:auto;
+    overscroll-behavior-x:contain;
+    -webkit-overflow-scrolling:touch;
+    margin-inline:calc(var(--pad-side) * -1);
+    padding-inline:var(--pad-side);
+    scrollbar-width:none;
+  }
+  .plan__scroll::-webkit-scrollbar{display:none}
+  .plan__svg{min-width:600px}
+
+  /* Подсказка, что схему можно листать. */
+  .plan__level figcaption::after,
+  .plan__site figcaption::after{
+    content:"листайте вбок →";
+    margin-left:auto;
+    color:var(--hair-lit); letter-spacing:.06em;
+  }
+
+  .room__label{font-size:19px}
   .room__area,
   .glazing__label,
   .site__note,
-  .void__label{font-size:15px}
-  .furn__label{font-size:14px}
+  .void__label{font-size:14px}
+  .furn__label{font-size:13px}
 }

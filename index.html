@@ -124,7 +124,7 @@
       <!-- ── Участок ── -->
       <figure class="plan__site">
         <figcaption class="mono">Участок · 30 × 21 м <span class="plan__scale">масштаб 1 : 50</span></figcaption>
-        <svg viewBox="0 0 680 500" class="plan__svg" role="img"
+        <div class="plan__scroll"><svg viewBox="0 0 680 500" class="plan__svg" role="img"
              aria-label="План участка: дом с террасой, купель, баня, газовый гриль, подъезд и сосновый лес по границе">
 
           <path class="site__bound" d="M40 40 H300 M400 40 H640 V460 H40 V40"/>
@@ -132,6 +132,7 @@
           <!-- ворота -->
           <g class="room gate" tabindex="0" role="button"
              data-note="Ворота на ключе, закрываются кнопкой. Участок свой, посторонние сюда не заходят.">
+            <rect class="hit" x="288" y="12" width="124" height="46"/>
             <path class="gate__leaf" d="M300 40 H346 M354 40 H400"/>
             <text class="glazing__label" x="350" y="28" text-anchor="middle">ворота на ключе</text>
           </g>
@@ -202,7 +203,7 @@
           </g>
 
           <text class="site__note" x="640" y="446" text-anchor="end">по границе — сосновый лес</text>
-        </svg>
+        </svg></div>
       </figure>
 
       <!-- ── Этажи, строго в одном масштабе ── -->
@@ -210,7 +211,7 @@
 
         <figure class="plan__level">
           <figcaption class="mono">Первый этаж · 42 м² <span class="plan__scale">1 : 100</span></figcaption>
-          <svg viewBox="0 0 680 800" class="plan__svg" role="img"
+          <div class="plan__scroll"><svg viewBox="0 0 680 800" class="plan__svg" role="img"
                aria-label="План первого этажа: коридор с задним входом и вешалкой под лестницей, ванная и кухня по левой стене, гостиная с диваном, гамаком и обеденной зоной у камина, панорамный торец с выходом на террасу">
 
             <g class="room" tabindex="0" role="button"
@@ -301,6 +302,7 @@
             <!-- кнопка вызова охраны -->
             <g class="panic room" tabindex="0" role="button"
                data-note="Тревожная кнопка у входа. Одно нажатие — и выезжает вооружённая охрана. Одиннадцать километров до ближайшего фонаря не значит, что вы одни.">
+              <rect class="hit" x="244" y="138" width="180" height="50"/>
               <rect class="panic__body" x="252" y="150" width="34" height="26" rx="4"/>
               <circle class="panic__dot" cx="269" cy="163" r="6"/>
               <text class="room__area" x="296" y="168">вызов охраны</text>
@@ -313,12 +315,12 @@
             </g>
             <g class="door" aria-hidden="true"><path d="M290 740 H410"/></g>
             <text class="glazing__label" x="340" y="770" text-anchor="middle">панорамный торец · выход на террасу</text>
-          </svg>
+          </svg></div>
         </figure>
 
         <figure class="plan__level">
           <figcaption class="mono">Антресоль · 20 м² <span class="plan__scale">1 : 100</span></figcaption>
-          <svg viewBox="0 0 680 800" class="plan__svg" role="img"
+          <div class="plan__scroll"><svg viewBox="0 0 680 800" class="plan__svg" role="img"
                aria-label="План антресоли: двуспальная кровать, окно с занавеской у изголовья, ограждение в ногах, за которым основное панорамное окно">
 
             <g class="room" tabindex="0" role="button"
@@ -346,6 +348,7 @@
 
             <g class="room" tabindex="0" role="button"
                data-note="Окно у изголовья. Есть плотная занавеска — утреннее солнце сюда бьёт рано.">
+              <rect class="hit" x="236" y="12" width="208" height="46"/>
               <path class="glazing__head" d="M250 40 H430"/>
               <text class="glazing__label" x="340" y="30" text-anchor="middle">окно у изголовья · занавеска</text>
             </g>
@@ -366,7 +369,7 @@
               <path class="glazing__inner" d="M40 733 H640"/>
             </g>
             <text class="glazing__label" x="340" y="770" text-anchor="middle">основное панорамное окно</text>
-          </svg>
+          </svg></div>
         </figure>
 
       </div>
@@ -579,6 +582,13 @@
     </section>
 
   </main>
+
+  <!-- Липкая панель: приезжает после первого экрана, прячется у формы.
+       Только на узких экранах — на десктопе кнопка есть в шапке. -->
+  <div class="stickybar" data-sticky hidden>
+    <p class="stickybar__price num">от 14 900 ₽ <span>за ночь</span></p>
+    <a class="btn stickybar__btn" href="#booking">Выбрать даты</a>
+  </div>
 
   <footer class="foot">
     <div class="foot__brand">
