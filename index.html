@@ -53,9 +53,12 @@
     <section class="hero" id="hero">
       <div class="hero__media">
         <picture>
+          <!-- Мобильный кадр: сосновый бор со светящимся домом. AVIF отдаём
+               как есть — браузеры читают его нативно, и файл легче JPEG. -->
+          <source media="(max-width:900px)" type="image/avif" srcset="photos/hero-forest.avif">
           <source media="(max-width:900px)" srcset="photos/hero-tall.jpg">
           <img src="photos/hero-wide.jpg" fetchpriority="high" decoding="async"
-               alt="Дом со светящимся фронтоном в сумерках">
+               alt="Дом со светящимся фронтоном в сумеречном лесу">
         </picture>
       </div>
 

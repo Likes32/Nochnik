@@ -18,6 +18,18 @@
   transition:padding .35s var(--ease), background-color .35s var(--ease);
 }
 
+/* Подложка под шапкой: вверху первого экрана затемнения почти нет,
+   и кремовый знак с бургером сливаются со светлым небом. */
+.nav::before{
+  content:""; position:absolute; inset:0 0 auto 0; height:160%;
+  background:linear-gradient(to bottom,
+    rgba(7,10,8,.62) 0%, rgba(7,10,8,.34) 45%, rgba(7,10,8,0) 100%);
+  pointer-events:none; z-index:-1;
+  transition:opacity .35s var(--ease);
+}
+.nav.scrolled::before{opacity:0}
+.nav > *{position:relative}
+
 .nav__brand{
   display:flex; align-items:center; gap:11px;
   color:inherit; font-family:var(--display); font-size:1.5rem; letter-spacing:.02em;
