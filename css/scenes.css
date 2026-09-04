@@ -119,6 +119,11 @@
    вертикаль во весь рост давала картинку впятеро выше текстового блока.
    Фиксированная высота держит ритм и укорачивает страницу. */
 .scene__media{height:clamp(300px,38vh,460px)}
+
+/* Точка кадрирования под конкретный снимок. Вертикальный кадр в широком
+   слоте по умолчанию берёт середину — а сюжет часто ниже или выше неё. */
+#dinner .scene__media img{object-position:center 84%}   /* кресла и стол внизу */
+#morning .scene__media img{object-position:center 82%}  /* окно и подушки */
 .scene__body{padding-top:clamp(1.5rem,3vw,2.5rem); max-width:52ch}
 .scene__body h2{margin-bottom:.45em}
 .scene__body p{color:#CFCBBE}

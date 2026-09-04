@@ -1,0 +1,29 @@
+<!doctype html><html lang="ru"><head><meta charset="utf-8">
+<title>Проверка кадрирования</title>
+<!--
+  Показывает сцены по одной сверху страницы, чтобы кадрирование было
+  видно без прокрутки: браузерная панель после прокрутки не отдаёт кадр.
+  Открывать через локальный сервер: /tools/crop-preview.html
+-->
+<link rel="stylesheet" href="../fonts.css">
+<link rel="stylesheet" href="../css/tokens.css">
+<link rel="stylesheet" href="../css/base.css">
+<link rel="stylesheet" href="../css/sections.css">
+<link rel="stylesheet" href="../css/scenes.css">
+<style>.section{padding:24px var(--pad-side)} .nav{display:none}</style>
+</head><body><div class="shell" id="app"></div>
+<script>
+const scenes = [
+  ["dinner",  "terrace.jpg", "Ужин на террасе", false],
+  ["sauna",   "sauna.jpg",   "Баня",            true ],
+  ["tub",     "tub.jpg",     "Купель",          false],
+  ["morning", "morning.jpg", "Утро",            true ],
+];
+document.getElementById("app").innerHTML = scenes.map(([id, file, title, flip]) => `
+  <section class="section scene${flip ? " scene--flip" : ""}" id="${id}">
+    <div class="scene__media"><img src="../photos/${file}" alt=""></div>
+    <div class="scene__body"><h2>${title}</h2>
+      <p class="mono">${file}</p></div>
+  </section>`).join("");
+</script>
+</body></html>
