@@ -4,7 +4,7 @@
  */
 import {
   RATES, BLOCKED, REASONS, toKey, fromKey, addDays,
-  isBlocked, rangeIsFree, quote, nightKeys,
+  isBlocked, isWeekendNight, rangeIsFree, quote, nightKeys,
 } from "./booking-core.js";
 
 const WEEKDAYS = ["Пн", "Вт", "Ср", "Чт", "Пт", "Сб", "Вс"];
@@ -14,6 +14,7 @@ const MONTHS = [
 ];
 
 const money = new Intl.NumberFormat("ru-RU");
+const dayMonth = new Intl.DateTimeFormat("ru-RU", { day: "numeric", month: "long" });
 const rub = (n) => `${money.format(n)} ₽`;
 
 /** Склонение: 1 ночь, 2 ночи, 5 ночей. */
@@ -103,6 +104,7 @@ export function initCalendar(root) {
         btn.setAttribute("aria-disabled", "true");
         if (busy) btn.setAttribute("aria-label", `${day} ${MONTHS[month]} — занято`);
       }
+      if (isWeekendNight(key)) btn.classList.add("is-weekend");
       btn.tabIndex = key === state.focus ? 0 : -1;
       grid.append(btn);
     }
@@ -121,6 +123,24 @@ export function initCalendar(root) {
       btn.setAttribute("aria-selected", String(key === checkIn || key === checkOut));
       btn.tabIndex = key === state.focus ? 0 : -1;
     }
+  }
+
+  /**
+   * Выбранные ночи загораются по очереди слева направо — как лампы вдоль
+   * ряда. Один раз на выбор, не фоном: постоянная анимация в интерфейсе
+   * бронирования только мешает считать деньги.
+   */
+  function lightUp() {
+    if (matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    if (document.documentElement.classList.contains("lite")) return;
+
+    const chosen = [...monthsBox.querySelectorAll(".cal__day.is-in, .cal__day.is-range, .cal__day.is-out")];
+    chosen.forEach((el, i) => {
+      el.style.setProperty("--i", i);
+      el.classList.remove("is-lighting");
+      void el.offsetWidth;            // перезапуск анимации
+      el.classList.add("is-lighting");
+    });
   }
 
   function render() {
@@ -163,11 +183,19 @@ export function initCalendar(root) {
       <p class="bk__meta mono">заезд с 15:00 · выезд до 12:00</p>`;
   }
 
+  const human = (key) => dayMonth.format(fromKey(key));
+
   function announce() {
     const { checkIn, checkOut } = state;
-    if (!checkIn) hint.textContent = "Выберите дату заезда.";
-    else if (!checkOut) hint.textContent = `Заезд ${checkIn}. Теперь выберите выезд, минимум через две ночи.`;
-    else hint.textContent = `Выбрано: ${checkIn} — ${checkOut}.`;
+    if (!checkIn) {
+      hint.textContent = "Выберите первую ночь — можно и одну.";
+      return;
+    }
+    if (!checkOut) {
+      hint.textContent = `Заезд ${human(checkIn)}. Теперь выберите день выезда.`;
+      return;
+    }
+    hint.textContent = `С ${human(checkIn)} по ${human(checkOut)} — ${nights(nightKeys(checkIn, checkOut).length)}.`;
   }
 
   function pick(key) {
@@ -193,6 +221,7 @@ export function initCalendar(root) {
     }
     state.hover = null;
     paint();
+    if (state.checkIn && state.checkOut) lightUp();
     showQuote();
     announce();
   }

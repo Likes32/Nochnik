@@ -8,6 +8,24 @@
 <meta name="color-scheme" content="dark">
 <meta name="theme-color" content="#0D130F">
 
+<link rel="canonical" href="https://likes32.github.io/Nochnik/">
+
+<!-- Карточка для мессенджеров и соцсетей. Пересобирается: tools/og.ps1 -->
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Ночник">
+<meta property="og:locale" content="ru_RU">
+<meta property="og:url" content="https://likes32.github.io/Nochnik/">
+<meta property="og:title" content="Ночник — дом в лесу, который видно издалека">
+<meta property="og:description" content="Одна хижина на своём участке: баня, купель с подогревом, панорамный торец во всю стену. Ближайший фонарь — в одиннадцати километрах.">
+<meta property="og:image" content="https://likes32.github.io/Nochnik/assets/og.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Светящийся A-frame дом в сумерках">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Ночник — дом в лесу, который видно издалека">
+<meta name="twitter:description" content="Баня, купель с подогревом, четыре спальных места. От 14 900 ₽ за ночь.">
+<meta name="twitter:image" content="https://likes32.github.io/Nochnik/assets/og.jpg">
+
 <link rel="icon" href="assets/logo-compact.svg" type="image/svg+xml">
 <link rel="preload" as="font" type="font/woff2" crossorigin href="fonts/onest-cyrillic.woff2">
 <link rel="preload" as="font" type="font/woff2" crossorigin href="fonts/cormorant-cyrillic.woff2">
@@ -40,10 +58,18 @@
     </button>
 
     <nav class="nav__menu" id="menu" aria-label="Основная навигация">
-      <a href="#house">Дом</a>
-      <a href="#sauna">Баня и купель</a>
-      <a href="#practice">Как добраться</a>
-      <a class="nav__cta" href="#booking">Выбрать даты</a>
+      <ul class="nav__list">
+        <li><a href="#house">Дом<span class="mono">62 м² · 4 места</span></a></li>
+        <li><a href="#section-view">Разрез<span class="mono">6,2 м по коньку</span></a></li>
+        <li><a href="#plan">Планы<span class="mono">участок и этажи</span></a></li>
+        <li><a href="#sauna">Баня и купель<span class="mono">3 500 ₽ · круглый год</span></a></li>
+        <li><a href="#practice">Как добраться<span class="mono">1 ч 40 мин</span></a></li>
+      </ul>
+
+      <div class="nav__foot">
+        <p class="nav__price num">от 14 900 ₽ <span>за ночь</span></p>
+        <a class="btn nav__cta" href="#booking">Выбрать даты</a>
+      </div>
     </nav>
   </header>
 
@@ -174,8 +200,9 @@
     <!-- ── 18:40 · Планы ─────────────────────────────────── -->
     <!-- ── Разрез ─────────────────────────────────────────────── -->
     <section class="section xs" id="section-view">
-      <figure class="xs">
+      <figure class="xs__fig">
         <figcaption class="mono">Разрез <span>масштаб 1 : 100</span></figcaption>
+        <div class="xs__scroll">
         <svg viewBox="0 0 1200 500" class="xs__svg" role="img"
              aria-label="Разрез дома: A-frame высотой 6,2 метра и шириной 6 метров, антресоль на высоте 2,6 метра, панорамный торец во всю высоту, терраса на два метра">
 
@@ -220,6 +247,7 @@
             <text class="xs__sub" x="901.0" y="421.0">2 метра, на восток</text>
           </g>
         </svg>
+        </div>
       </figure>
     </section>
 
@@ -693,8 +721,9 @@
 
       <div class="section__head">
         <h2>Когда приедете</h2>
-        <p>Будни и выходные стоят по-разному, поэтому считаю сразу — без
-        «уточняйте у менеджера».</p>
+        <p>Клетка — это ночь, а не день: за них и платят. Занятые подсвечены —
+        в них свет уже горит. Будни и выходные стоят по-разному, и это видно
+        до выбора, а не в счёте после.</p>
       </div>
 
       <div class="bk">
@@ -712,8 +741,9 @@
 
           <ul class="cal__legend">
             <li><i class="k-free"></i> свободно</li>
-            <li><i class="k-busy"></i> занято</li>
-            <li><i class="k-pick"></i> ваш выбор</li>
+            <li><i class="k-busy"></i> свет уже горит</li>
+            <li><i class="k-week"></i> ночь дороже</li>
+            <li><i class="k-pick"></i> ваши ночи</li>
           </ul>
         </div>
 

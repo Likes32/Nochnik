@@ -256,13 +256,13 @@
    Чертёж, а не иллюстрация: все размеры на нём честные, масштаб
    подписан. Это увеличенный логотип — треугольник со светящимся
    торцом, — только с выносками и размерными линиями. */
-.xs{margin:0}
-.xs figcaption{
+.xs__fig{margin:0}
+.xs__fig figcaption{
   display:flex; align-items:baseline; gap:12px;
   margin-bottom:clamp(1rem,2.5vw,2rem);
   color:var(--olive);
 }
-.xs figcaption span{color:var(--hair-lit); letter-spacing:.08em}
+.xs__fig figcaption span{color:var(--hair-lit); letter-spacing:.08em}
 .xs__svg{width:100%; height:auto; overflow:visible}
 
 .xs__ground{stroke:var(--hair-lit); stroke-width:1; fill:none}
@@ -302,8 +302,23 @@
 
   /* Разрез уезжает вбок вместе со схемами: сжатый до 335 пикселей
      он превращается в нечитаемую паутину. */
-  .xs__svg{min-width:760px}
-  .xs figure, .xs{overflow-x:auto; margin-inline:calc(var(--pad-side) * -1); padding-inline:var(--pad-side)}
+  /* Прокручиваем именно обёртку вокруг схемы. Раньше класс xs висел
+     и на секции, и на figure — правила применялись дважды, вложенно,
+     и чертёж обрезался наполовину. */
+  .xs__svg{min-width:820px}
+  .xs__scroll{
+    overflow-x:auto;
+    overscroll-behavior-x:contain;
+    -webkit-overflow-scrolling:touch;
+    margin-inline:calc(var(--pad-side) * -1);
+    padding-inline:var(--pad-side);
+    scrollbar-width:none;
+  }
+  .xs__scroll::-webkit-scrollbar{display:none}
+  .xs__fig figcaption::after{
+    content:"листайте вбок →";
+    margin-left:auto; color:var(--hair-lit); letter-spacing:.06em;
+  }
   .xs__notes text{font-size:22px}
   .xs__notes .xs__sub, .xs__dimtext{font-size:19px}
 

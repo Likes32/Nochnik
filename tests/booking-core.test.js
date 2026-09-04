@@ -39,10 +39,18 @@ test("isBlocked работает по переданному списку", () =
   assert.equal(isBlocked("2026-09-10", ["2026-09-11"]), false);
 });
 
-test("минимум две ночи", () => {
+test("одна ночь бронируется", () => {
   const q = quote("2026-09-10", "2026-09-11", { blocked: [] });
-  assert.equal(q.ok, false);
-  assert.equal(q.reason, "min-nights");
+  assert.equal(q.ok, true);
+  assert.equal(q.nights, 1);
+  assert.equal(q.accommodation, 14900);        // четверг — будни
+  assert.equal(q.total, 14900 + 2500);
+});
+
+test("одна ночь с выходного считается по дорогому тарифу", () => {
+  const q = quote("2026-09-11", "2026-09-12", { blocked: [] });  // пятница
+  assert.equal(q.nights, 1);
+  assert.equal(q.accommodation, 18900);
 });
 
 test("выезд раньше заезда отбивается", () => {

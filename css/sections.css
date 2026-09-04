@@ -28,7 +28,7 @@
   transition:opacity .35s var(--ease);
 }
 .nav.scrolled::before{opacity:0}
-.nav > *{position:relative}
+.nav > *{position:relative; z-index:1}
 
 .nav__brand{
   display:flex; align-items:center; gap:11px;
@@ -37,13 +37,19 @@
 }
 .nav__brand svg{width:28px; height:28px; flex:none}
 
-.nav__menu{
-  margin-left:auto;
+.nav__menu{margin-left:auto; display:flex; align-items:center; gap:30px}
+.nav__list{
   display:flex; align-items:center; gap:30px;
+  list-style:none; margin:0; padding:0;
   font-size:var(--step-2);
 }
-.nav__menu a{color:var(--cream); opacity:.82}
-.nav__menu a:hover{opacity:1; color:var(--gold)}
+.nav__list a{color:var(--cream); opacity:.82}
+.nav__list a:hover{opacity:1; color:var(--gold)}
+/* На десктопе факты рядом с пунктами не нужны — там места мало,
+   а строка меню должна оставаться строкой. */
+.nav__list .mono{display:none}
+.nav__foot{display:flex; align-items:center; gap:18px}
+.nav__price{display:none}
 
 .nav__cta{
   border:1px solid var(--hair-lit);
@@ -86,19 +92,68 @@
   .nav__burger[aria-expanded="true"] span[aria-hidden]:first-of-type{transform:translateY(3.75px) rotate(45deg)}
   .nav__burger[aria-expanded="true"] span[aria-hidden]:last-of-type{transform:translateY(-3.75px) rotate(-45deg)}
 
-  /* Полноэкранное меню, а не мелкий дропдаун.
-     Скрыто через видимость и высоту — блок остаётся в потоке для скринридера. */
+  /* Полноэкранная панель. Это не список ссылок, а сводка: у каждого
+     пункта справа факт, внизу цена и кнопка. Открытое меню должно
+     отвечать на вопрос «что тут вообще есть», а не только уводить. */
+  /* Панель ниже знака и бургера: их видно и по ним же закрывают. */
   .nav__menu{
-    position:fixed; inset:0; margin:0;
-    flex-direction:column; align-items:flex-start; justify-content:center;
-    gap:8px; padding:0 var(--pad-side);
+    position:fixed; inset:0; margin:0; z-index:0;
+    display:grid; grid-template-rows:auto 1fr auto;
+    gap:0; padding:0;
     background:var(--n0);
-    font-family:var(--display); font-size:2rem;
     opacity:0; visibility:hidden; pointer-events:none;
-    transition:opacity .32s var(--ease), visibility .32s;
+    transition:opacity .3s var(--ease), visibility .3s;
   }
-  .nav__menu a{padding:12px 0; opacity:1}
-  .nav__cta{margin-top:20px; font-family:var(--body); font-size:var(--step-3)}
-
   .nav.menu-open .nav__menu{opacity:1; visibility:visible; pointer-events:auto}
+
+  /* Место под шапку: знак и бургер остаются видимыми поверх панели. */
+  .nav__menu::before{content:""; display:block; height:64px}
+
+  .nav__list{
+    display:grid; align-content:center; gap:0;
+    padding:0 var(--pad-side);
+    font-size:inherit;
+  }
+  .nav__list li{border-top:1px solid var(--hair)}
+  .nav__list li:last-child{border-bottom:1px solid var(--hair)}
+  .nav__list a{
+    display:flex; align-items:baseline; gap:16px;
+    padding:18px 0;
+    opacity:1;
+    font-family:var(--display); font-size:1.55rem; line-height:1.15;
+    color:var(--cream);
+  }
+  .nav__list .mono{
+    display:block; margin-left:auto;
+    color:var(--olive); text-align:right;
+  }
+  .nav__list a:active{color:var(--gold)}
+
+  /* Пункты въезжают по очереди — панель открывается, а не появляется. */
+  .nav__list li{opacity:0; transform:translateY(10px)}
+  .nav.menu-open .nav__list li{
+    opacity:1; transform:none;
+    transition:opacity .4s var(--ease), transform .4s var(--ease);
+  }
+  .nav.menu-open .nav__list li:nth-child(2){transition-delay:.05s}
+  .nav.menu-open .nav__list li:nth-child(3){transition-delay:.1s}
+  .nav.menu-open .nav__list li:nth-child(4){transition-delay:.15s}
+  .nav.menu-open .nav__list li:nth-child(5){transition-delay:.2s}
+
+  .nav__foot{
+    display:flex; align-items:center; gap:16px; flex-wrap:wrap;
+    padding:22px var(--pad-side);
+    padding-bottom:calc(22px + env(safe-area-inset-bottom, 0px));
+    border-top:1px solid var(--hair);
+  }
+  .nav__price{display:block; margin:0; color:var(--cream); font-size:1.0625rem}
+  .nav__price span{color:var(--olive); font-size:var(--step-1)}
+  .nav__cta{
+    margin-left:auto; border:0; border-radius:8px;
+    padding:0 24px; min-height:48px;
+    background:var(--gold); color:var(--n0); font-weight:600;
+  }
+
+  .lite .nav__list li{opacity:1; transform:none; transition:none}
+
 }

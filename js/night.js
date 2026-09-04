@@ -28,7 +28,7 @@ export function shade(p, darkAt) {
   return `rgb(${c[0]},${c[1]},${c[2]})`;
 }
 
-export function initNight({ parallax = false } = {}) {
+export function initNight({ parallax = false, steps = 24 } = {}) {
   const shell = document.querySelector(".shell");
   const hero = document.querySelector("#hero");
   const heroImg = hero?.querySelector(".hero__media img");
@@ -51,13 +51,24 @@ export function initNight({ parallax = false } = {}) {
   }
 
   let ticking = false;
+  let lastStep = -1;
+
   function frame() {
     ticking = false;
+    if (root.classList.contains("lite")) return;
+
     const y = window.scrollY;
     const p = Math.min(1, Math.max(0, y / geo.max));
 
-    root.style.setProperty("--night", p.toFixed(4));
-    shell.style.backgroundColor = shade(p, geo.darkAt);
+    /* Фон меняем ступенями, а не покадрово. Смена background-color
+       перерисовывает весь экран; в слабом вебвью (Telegram, Instagram)
+       это и есть источник рывков. Двух десятков ступеней на всю
+       страницу глазу достаточно, а перерисовок в сотни раз меньше. */
+    const step = Math.round(p * steps);
+    if (step !== lastStep) {
+      lastStep = step;
+      shell.style.backgroundColor = shade(step / steps, geo.darkAt);
+    }
 
     if (parallax && heroImg) {
       // Только первый экран: остальные кадры при прокрутке не двигаем,

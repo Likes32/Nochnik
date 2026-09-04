@@ -40,7 +40,10 @@
 }
 
 /* Ячейка не меньше 44px — это минимум под палец. */
+/* Клетка — это ночь, а не день: платят за ночи, и бренд про них же.
+   Отсюда весь язык обозначений ниже. */
 .cal__day{
+  position:relative;
   min-width:44px; min-height:44px;
   display:grid; place-items:center;
   background:none; border:1px solid transparent; border-radius:6px;
@@ -48,26 +51,63 @@
   font-variant-numeric:tabular-nums;
   cursor:pointer;
   transition:background-color .18s var(--ease), color .18s var(--ease),
-             border-color .18s var(--ease);
+             box-shadow .18s var(--ease);
 }
 .cal__pad{min-height:44px}
 
-.cal__day:hover:not(:disabled){border-color:var(--gold-dim)}
-
-.cal__day.is-past{color:var(--hair-lit); cursor:default}
-.cal__day.is-busy{
-  color:var(--hair-lit); cursor:not-allowed;
-  background:repeating-linear-gradient(
-    -45deg, transparent 0 3px, var(--hair) 3px 4px);
+/* Свободная ночь под курсором: свет включается. */
+.cal__day:hover:not(:disabled){
+  background:rgba(240,181,74,.10);
+  box-shadow:inset 0 0 0 1px rgba(240,181,74,.38);
 }
 
-.cal__day.is-range{background:var(--n2); border-radius:0}
+/* Прошедшие ночи просто гаснут. */
+.cal__day.is-past{color:var(--hair-lit); cursor:default}
+
+/* Занятая ночь — та, где свет уже горит. Не перечёркнутая клетка,
+   а занятая: точка вместо штриховки. Два признака помимо цвета —
+   форма (точка) и приглушённость числа. */
+.cal__day.is-busy{color:var(--hair-lit); cursor:not-allowed}
+.cal__day.is-busy::after{
+  content:""; position:absolute; bottom:6px; left:50%;
+  width:5px; height:5px; margin-left:-2.5px;
+  border-radius:50%;
+  background:var(--gold); opacity:.5;
+  box-shadow:0 0 7px rgba(240,181,74,.55);
+}
+
+/* Ночь с пятницы и субботы стоит дороже — видно до выбора, а не в счёте. */
+.cal__day.is-weekend:not(.is-busy)::before{
+  content:""; position:absolute; bottom:7px; left:50%;
+  width:13px; height:1px; margin-left:-6.5px;
+  background:var(--gold-dim); opacity:.45;
+}
+
+/* Выбранное */
+.cal__day.is-range{background:rgba(240,181,74,.15); border-radius:0; color:var(--cream)}
 .cal__day.is-in,
 .cal__day.is-out{
   background:var(--gold); color:var(--n0); font-weight:500; border-color:var(--gold);
+  box-shadow:0 0 20px -5px rgba(240,181,74,.8);
 }
 .cal__day.is-in{border-radius:6px 0 0 6px}
 .cal__day.is-out{border-radius:0 6px 6px 0}
+.cal__day.is-in.is-out{border-radius:6px}
+.cal__day.is-in::before,
+.cal__day.is-out::before,
+.cal__day.is-range::before{background:rgba(7,10,8,.45)}
+
+/* Волна зажигания: лампы включаются вдоль ряда, слева направо.
+   Один раз на выбор — постоянная анимация мешала бы считать деньги. */
+@keyframes calLight{
+  from{box-shadow:0 0 0 0 rgba(240,181,74,0)}
+  40% {box-shadow:0 0 22px 2px rgba(240,181,74,.55)}
+  to  {box-shadow:0 0 20px -5px rgba(240,181,74,.35)}
+}
+.cal__day.is-lighting{
+  animation:calLight .5s var(--ease) both;
+  animation-delay:calc(var(--i, 0) * 45ms);
+}
 
 .cal__hint{
   margin:18px 0 0; min-height:2.6em; max-width:46ch;
@@ -143,7 +183,12 @@
 .cal__legend li{display:flex; align-items:center; gap:8px}
 .cal__legend i{width:14px; height:14px; border-radius:3px; flex:none}
 .cal__legend .k-free{border:1px solid var(--hair-lit)}
-.cal__legend .k-busy{background:repeating-linear-gradient(-45deg,transparent 0 3px,var(--hair) 3px 4px); border:1px solid var(--hair)}
+.cal__legend .k-busy{position:relative; border:1px solid var(--hair)}
+.cal__legend .k-busy::after{content:""; position:absolute; inset:0; margin:auto;
+  width:5px; height:5px; border-radius:50%; background:var(--gold); opacity:.55}
+.cal__legend .k-week{position:relative; border:1px solid var(--hair-lit)}
+.cal__legend .k-week::after{content:""; position:absolute; left:1px; right:1px; bottom:2px;
+  height:1px; background:var(--gold-dim); opacity:.6}
 .cal__legend .k-pick{background:var(--gold)}
 
 /* ── Мобильная раскладка. Держим блок последним в файле. ── */
