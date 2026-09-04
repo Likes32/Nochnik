@@ -1,3 +1,5 @@
+param([string]$Only)
+
 # Приводит кадры к единому ночному грейду и впекает его в JPEG.
 # Грейд именно запекается, а не вешается CSS-фильтром: фильтр на
 # полноэкранном фото заставляет iOS гонять шейдер на каждой прокрутке.
@@ -47,6 +49,7 @@ $encParams.Param[0] = New-Object System.Drawing.Imaging.EncoderParameter(
 
 $total = 0
 foreach ($file in Get-ChildItem $photos -Filter *.jpg) {
+    if ($Only -and $file.Name -ne $Only) { continue }
     $src = [System.Drawing.Image]::FromFile($file.FullName)
 
     $scale = [Math]::Min(1.0, $maxSide / [Math]::Max($src.Width, $src.Height))

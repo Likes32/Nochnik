@@ -28,13 +28,24 @@
   position:absolute; inset:0; z-index:-1;
   border:0; border-radius:0;
 }
+/* Затемнение. Много промежуточных стопов нарочно: у двух-трёх точек
+   линейный градиент даёт видимую «полку» — горизонтальную границу там,
+   где кадр обрывается. Здесь он гаснет в фон страницы без ступени. */
 .hero__media::before{
   content:"";
   position:absolute; inset:0;
-  background:linear-gradient(to top, var(--n1) 4%, rgba(13,19,15,.55) 45%, rgba(13,19,15,.2) 100%);
+  background:linear-gradient(to top,
+    rgb(13,19,15)      0%,
+    rgba(13,19,15,.98) 8%,
+    rgba(13,19,15,.90) 16%,
+    rgba(13,19,15,.76) 26%,
+    rgba(13,19,15,.60) 38%,
+    rgba(13,19,15,.44) 52%,
+    rgba(13,19,15,.32) 68%,
+    rgba(13,19,15,.26) 85%,
+    rgba(13,19,15,.30) 100%);
 }
 .hero__body{max-width:44ch}
-.hero__time{margin:0 0 clamp(1rem,3vh,2rem); color:var(--gold-dim)}
 .hero h1{margin:0 0 .5em}
 .hero__lead{color:#D6D2C4; font-size:clamp(1rem,1.4vw,1.1875rem)}
 
@@ -90,20 +101,21 @@
 .house__specs dd{margin:0 0 0 auto; color:var(--cream); text-align:right}
 
 /* ── Сцены ночи ── */
-.scene__media{aspect-ratio:3/2; grid-column:2}
-.scene__body{grid-column:2; padding-top:clamp(1.5rem,3vw,2.5rem); max-width:52ch}
+/* Вертикальный кадр рядом с текстом читается по-редакторски —
+   и совпадает с тем, как сняты сами фотографии. */
+.scene__media{aspect-ratio:3/4}
+.scene__body{padding-top:clamp(1.5rem,3vw,2.5rem); max-width:52ch}
 .scene__body h2{margin-bottom:.45em}
 .scene__body p{color:#CFCBBE}
 .scene__aside{margin-top:1.5rem; color:var(--gold-dim)}
 
 /* Раскладка со сменой сторон: медиа и текст рядом, чередуя порядок. */
 @media (min-width:901px){
-  .scene{grid-template-columns:var(--rail) minmax(0,1.15fr) minmax(0,1fr)}
-  .scene .section__time{grid-column:1}
-  .scene__media{grid-column:2; grid-row:1}
-  .scene__body{grid-column:3; grid-row:1; padding:0 0 0 clamp(1.5rem,3vw,3rem)}
-  .scene--flip .scene__media{grid-column:3}
-  .scene--flip .scene__body{grid-column:2; padding:0 clamp(1.5rem,3vw,3rem) 0 0}
+  .scene{display:grid; grid-template-columns:minmax(0,1.15fr) minmax(0,1fr)}
+  .scene__media{grid-column:1; grid-row:1}
+  .scene__body{grid-column:2; grid-row:1; padding:0 0 0 clamp(1.5rem,3vw,3rem)}
+  .scene--flip .scene__media{grid-column:2}
+  .scene--flip .scene__body{grid-column:1; padding:0 clamp(1.5rem,3vw,3rem) 0 0}
 }
 
 /* ── Тишина: самая тёмная точка страницы, без фотографии ── */
@@ -171,8 +183,10 @@
   .scene__media{
     margin-inline:calc(var(--pad-side) * -1);
     border-radius:0; border-left:0; border-right:0;
-    aspect-ratio:4/3;
   }
+  .house__media{aspect-ratio:4/3}
+  /* На узком экране вертикаль во весь рост слишком высокая — поджимаем. */
+  .scene__media{aspect-ratio:4/5}
   .scene__body{padding:1.75rem 0 0}
 
   .quiet__facts{flex-direction:column; gap:1.25rem}
